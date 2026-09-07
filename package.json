@@ -1,0 +1,30 @@
+{
+  "name": "sidefx-database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only Harness observation and rebuildable SQL Server inspection projections",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "probe": "node src/cli.mjs probe",
+    "snapshot": "node src/cli.mjs snapshot",
+    "derive": "node src/cli.mjs derive",
+    "init": "node src/cli.mjs init",
+    "migrate": "node src/cli.mjs migrate",
+    "schema:emit": "node src/cli.mjs schema:emit",
+    "test:sql": "node src/cli.mjs prove",
+    "ingest": "node src/cli.mjs ingest",
+    "refresh": "node src/cli.mjs refresh",
+    "verify": "node src/cli.mjs verify",
+    "check": "node src/cli.mjs check",
+    "query": "node src/cli.mjs query",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@cucumber/gherkin": "42.0.1",
+    "@cucumber/messages": "34.2.1",
+    "mssql": "12.7.0"
+  }
+}

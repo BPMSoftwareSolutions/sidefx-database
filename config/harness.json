@@ -1,0 +1,9 @@
+{
+  "harnessRoot": "C:/lab/repos/agentic-harness",
+  "connectionEnvironmentVariable": "sidefx-connection-string",
+  "databaseSchema": "sidefx",
+  "includeUntracked": true,
+  "excludedPaths": [".git/", "node_modules/", ".env", ".env.", "secrets/"],
+  "queryRowLimit": 1000,
+  "requestTimeoutMs": 120000
+}

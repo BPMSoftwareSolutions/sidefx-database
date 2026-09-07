@@ -1,0 +1,25 @@
+{
+  "ruleId": "sidefx-inspection-completeness.v2",
+  "profile": "frozen-estate-completeness.v2",
+  "canonicalization": "JCS-IJSON-safe-integers.v1",
+  "extends": "sidefx-inspection-normalization.v1",
+  "selection": "The same frozen snapshot and managed capability membership as v1. Provisioned tokens, runtime projections, examples and receipts are not promoted to managed semantic authority.",
+  "namespaceBindings": {
+    "sharedAgentic": "sidefx:shared:agentic",
+    "sharedFeatureAuthoring": "sidefx:shared:feature-authoring",
+    "CONTRACT": "sidefx:contracts",
+    "PROVIDER": "sidefx:providers",
+    "AUTHORITY": "sidefx:authorities",
+    "BLUEPRINT": "sidefx:blueprints"
+  },
+  "selectors": {
+    "aliases": "Identical source bytes and compatible source scope add definition lineage, never entity copies. An appearance is fully supported only when its representative was fully supported.",
+    "schemas": "Standalone .schema.json documents or schemas declaring a json-schema.org metaschema are content-addressed SchemaObjects. An arbitrary instance with a $schema reference is not a schema. This does not mint a Contract ID.",
+    "shared": "The agentic and feature-authoring contract catalogs, interfaces, execution authorities and transformations are shared library declarations. Their namespace bindings are explicit above; capsule containment does not make a new shared entity.",
+    "authority": "Root authorityId plus an explicit authorityType, policyType or profileType, excluding schema, receipt, conformance and evidence documents. Preserve the declaration's complete canonical semantics and source status.",
+    "provider": "sfx-process-runtime.v1 declares providerId and a capabilities map. Exact mapped capability authority bytes must resolve before a provider_capability_implementation is inserted. profileId alone is a reference, not a Provider Profile definition.",
+    "blueprint": "canonical-circuit-blueprint.v1 inside managed capsules. capabilityAuthorityDigest is the exact feature authority digest in this historical profile. It must resolve to a feature already contributing to the selected capability definition. Nodes map by explicit node ID; scenario faces map only if all three explicit face IDs and the same capability agree. Missing digest-pinned binding authority, Product or exact face stays a typed unresolved observation; no fabricated endpoint is inserted. These are partial observed blueprint definitions, not an admission or graph-conformance claim."
+  },
+  "sourceBoundary": "A reference alone does not declare Product, Mechanic, Provider Profile, Provider or an authority definition. Parsed fixture payloads and expression literal objects are values, not independent entities.",
+  "coverage": "One replacement classification per appearance. Partial sources remain unsupported or ambiguous. SUPPORTED means the profile mapping is complete, not that all referenced source facts are valid. Explicit source-reference gaps are counted separately from missing importer profiles."
+}

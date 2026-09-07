@@ -1,0 +1,39 @@
+{
+  "ruleId": "sidefx-inspection-normalization.v1",
+  "profile": "frozen-estate-inspection.v1",
+  "canonicalization": "JCS-IJSON-safe-integers.v1",
+  "definitionEnvelope": "sidefx-semantic-definition.v1",
+  "selectedSnapshot": "sha256:86d58414531642348bc013dd5bb41aaa7fbb5ce75b7ae6b48847d3c91fd60fb7",
+  "selection": "MANAGED_CAPSULE entries in the verified snapshot. Repository provider catalogs are separate declared external-provider authority.",
+  "namespaceBindings": {
+    "CAPABILITY": "sidefx:capabilities",
+    "CONTRACT": "sidefx:contracts",
+    "PRODUCT": "sidefx:products",
+    "PROVIDER": "sidefx:providers",
+    "PORT": "sidefx:capability:<exact declared capabilityId>",
+    "EXECUTION_AUTHORITY": "sidefx:capability:<exact declared capabilityId>",
+    "TRANSFORMATION": "sidefx:capability:<exact declared capabilityId>",
+    "SCENARIO": "owned by exact declared Capability identity",
+    "SCENARIO_INPUT": "owned by exact declared Scenario identity",
+    "SCENARIO_EVENT": "owned by exact declared Scenario identity",
+    "SCENARIO_OUTCOME": "owned by exact declared Scenario identity",
+    "FIXTURE": "owned by exact declared Capability identity",
+    "OBSERVABLE_CONDITION": "owned by exact declared Capability identity"
+  },
+  "selectors": {
+    "capability": "Exact capability.authority.json entry; capabilityId must match verified capsule owner. No ID inferred from filename.",
+    "scenario": "Feature @capability agrees with capsule authority. Exactly one explicit @scenario per scenario. Feature aliases with identical bytes count once. Duplicate/conflicting declarations stay unsupported.",
+    "scenarioFaces": "Explicit @input, @event, @outcome tags only. Given/When/Then steps preserve declared responsibility and experience. Missing tags do not create IDs.",
+    "contracts": "Exact contracts/contract-catalog.json ID keys and relative schema selectors inside the same capsule. Different IDs may share schema bytes.",
+    "ports": "Explicit consumer-interface-authority.v1 portBindings[].portId declarations. platformCapabilityId is a Capability reference, never a Provider identity.",
+    "transformations": "semantic-transformation.authority.json transformations[].id/expression. Preserve expression JSON structure; arbitrary properties never declare entities.",
+    "execution": "execution-authorities.v1 executionAuthorities[].id/operations. Only invoke-port and invoke-scenario targets resolved in the same capsule are initially supported; project-state projectionId requires a separate exact projection mapping.",
+    "fixtures": "consumer-capability-fixtures.v1 fixtures[] are definitions. Explicit scenarioSequence, portOutcomes and assertion members are separate relationships.",
+    "providers": "authority/cli/provider-catalog.json sfx-provider-catalog.v1 providers[].providerId. Candidate capabilities and command bindings remain declarations; neither is an implementation or qualification claim."
+  },
+  "definitionManifest": "Capability and legacy Scenario definitions include a sorted set of canonical semantic authority contributions from their declared capsule profile. Contributions are semantic JSON or parsed feature AST with parser locations/IDs removed. Exact finite fragment digests bind recursive scenario references without recursive derived-definition hashing. Source paths, capsule digests, source generation and import time are excluded.",
+  "sourceGaps": "Historical blueprints, projected graphs/slots, carrier v2/v3, mechanic/profile declarations, projection authorities, proof evaluation and qualification profiles remain explicitly classified observations until their exact mapping is implemented. This initial profile makes no complete coverage or runtime readiness claim.",
+  "absence": "Preserve absent, explicit null, unresolved and not applicable separately. Missing semantic identifiers never create entity rows.",
+  "lineage": "Every normalized definition/member records exact source observations and canonical member locators under this rule. Repeated appearances add evidence, not identities.",
+  "coverage": "One classification per source appearance under this rule. Unsupported semantic sources and sources outside the semantic declaration scope remain separately countable. Partial mappings carry findings and are not labeled wholly normalized."
+}

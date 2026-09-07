@@ -1,0 +1,26 @@
+{
+  "ruleId": "sidefx-pinned-platform-normalization.v3",
+  "bootstrapRepository": "C:/lab/repos/sda-bootstrap",
+  "bootstrapRevision": "87ae918ce46fe4acadd0aecbdcb030c9b55043d9",
+  "baseSnapshot": "sha256:86d58414531642348bc013dd5bb41aaa7fbb5ce75b7ae6b48847d3c91fd60fb7",
+  "sources": [
+    "package.json",
+    "platform/kernel/semantic-authority/consumer/sda-platform-capabilities.semantic-authority.json",
+    "platform/kernel/semantic-authority/consumer/semantic-value-mechanics.authority.v1.json",
+    "platform/kernel/semantic-authority/consumer/platform-effect-mechanics.authority.v1.json",
+    "platform/kernel/semantic-authority/consumer/node-mechanic-registry.authority.v1.json"
+  ],
+  "namespaces": {
+    "PROVIDER": "sidefx:providers",
+    "MECHANIC": "sidefx:mechanics",
+    "CAPABILITY": "sidefx:platform-capabilities",
+    "PROVIDER_PROFILE": "sidefx:provider-profiles",
+    "AUTHORITY": "sidefx:authorities"
+  },
+  "providerIdentity": "sda-platform-capability-catalog.v1 capabilities[].provider is the explicitly named provider. It is not capabilities[].capabilityId, a module path, or a profile ID. Group repeated declarations by the exact provider name.",
+  "mechanics": "The platform capability catalog declares its provided-mechanic vocabulary in providesMechanics[]. Preserve these catalog vocabulary entries as minimal declared definitions with no invented description. Separately load the richer named mechanics[] definitions from semantic-value-mechanics-authority.v1 and platform-effect-mechanics-authority.v1. Preserve their distinct source profiles; never equate similar names such as canonicalization and canonicalize.",
+  "implementation": "A provider-mechanic implementation is the explicit capabilities[].provider -> capabilities[].providesMechanics[] declaration. Collapse repeated pairs across catalog entries, retaining all contributing observations. This is declared implementation, not a conformance or runtime-readiness assessment.",
+  "capability": "Catalog capability IDs inhabit the platform namespace. They are dependencies with exact definitions, not additional managed capability memberships or invented Scenarios.",
+  "profile": "Only graphProviderProfiles[].profileId declares a Provider Profile. A providerModule or profileId does not by itself declare a Provider identity.",
+  "generation": "Expand the original capture with the exact bootstrap Git revision pinned by its captured package-lock.json. Create a new closure snapshot and remap source appearances/observations/lineage into it; reuse existing entity and content identities. Never observe the mutable checkout as if it were the pinned version."
+}

@@ -1,0 +1,46 @@
+import {Dataset,bytesDigest} from './data.mjs';
+import {tables,fq,q} from './catalog.mjs';
+import {loadOrder} from './load.mjs';
+
+export function fixture(){
+ const d=new Dataset(),c=d.json({fixture:'SQL integrity proof; always rolled back'});
+ const s=d.add('source.estate_snapshot',{snapshot_digest:bytesDigest('proof-snapshot'),estate_manifest_digest:bytesDigest('proof-estate'),source_head:null,captured_at:null});
+ d.rule=d.add('source.mapping_rule',{rule_id:'proof.v1',rule_digest:c.content_digest,source_profile:'proof.v1',rule_content_object_pk:c.content_object_pk,canonicalization_profile:'JCS-IJSON-safe-integers.v1'});
+ d.model=d.add('source.estate_model',{estate_snapshot_pk:s.estate_snapshot_pk,mapping_manifest_digest:bytesDigest('proof-manifest'),publication_state:'BUILDING'});d.add('source.estate_model_rule',{estate_model_pk:d.model.estate_model_pk,mapping_rule_pk:d.rule.mapping_rule_pk});
+ const ap=d.add('source.source_appearance',{estate_snapshot_pk:s.estate_snapshot_pk,content_object_pk:c.content_object_pk,appearance_digest:bytesDigest('proof-appearance'),source_path:'proof',source_class:'PROOF',container_locator:null,capsule_digest:null,referenced_authority_digest:null,entry_id:null});
+ const o=d.observation(ap,'','DECLARATION',{fixture:true});const refs=[o];
+ const def=(kind,id,fields={},ns='proof',extra={})=>d.definition(d.identity(kind,id,ns,extra),{id,fields},fields,refs);
+ const cap=def('CAPABILITY','a',{name:'A'}),cap2=def('CAPABILITY','b',{name:'B'});
+ for(const x of [cap,cap2])d.add('estate_capability',{estate_model_pk:d.model.estate_model_pk,capability_pk:x.capability_pk,capability_version_pk:x.capability_version_pk,semantic_object_definition_pk:x.semantic_object_definition_pk});
+ const scenario=(cap,id)=>{const x=def('SCENARIO',id,{name:id,source_profile:'proof.v1'},d.ownedNamespace('SCENARIO',cap),{capability_pk:cap.capability_pk});d.member('capability_scenario',{capability_pk:cap.capability_pk,capability_version_pk:cap.capability_version_pk,scenario_pk:x.scenario_pk,scenario_version_pk:x.scenario_version_pk},cap,'/scenario/'+id,refs);return x;};
+  const sc=scenario(cap,'a-scenario'),sc2=scenario(cap2,'b-scenario');
+  const sc3=def('SCENARIO','unselected-scenario',{name:'unselected',source_profile:'proof.v1'},d.ownedNamespace('SCENARIO',cap),{capability_pk:cap.capability_pk});
+ const schema=d.add('schema_object',{content_digest:c.content_digest,dialect:null,content_object_pk:c.content_object_pk});
+ const contract=def('CONTRACT','contract-a',{schema_object_pk:schema.schema_object_pk,schema_reference_state:'RESOLVED'}),contract2=def('CONTRACT','contract-b',{schema_object_pk:schema.schema_object_pk,schema_reference_state:'RESOLVED'});
+ const port=def('PORT','port-a',{port_profile:'proof.v1'}),port2=def('PORT','port-b',{port_profile:'proof.v1'});
+ const mechanic=def('MECHANIC','mechanic-a',{definition_profile:'proof.v1'}),mechanic2=def('MECHANIC','mechanic-b',{definition_profile:'proof.v1'});
+ const provider=def('PROVIDER','provider-a',{declaration_profile:'proof.v1'}),provider2=def('PROVIDER','provider-b',{declaration_profile:'proof.v1'}),profile=def('PROVIDER_PROFILE','profile-a',{profile_authority:'proof.v1'});
+ const authority=def('AUTHORITY','authority-a',{authority_kind:'BINDING',authority_profile:'proof.v1'});
+ const ea=def('EXECUTION_AUTHORITY','exec-a',{authority_profile:'execution-authorities.v1'});
+ const op=d.member('execution_operation',{execution_authority_version_pk:ea.execution_authority_version_pk,operation_id:null,ordinal:0,operation_kind:'invoke-port'},ea,'/operations/0',refs);d.member('operation_port_invocation',{execution_operation_pk:op.execution_operation_pk,operation_kind:'invoke-port',port_version_pk:port.port_version_pk},ea,'/operations/0',refs);
+ for(const s of [sc,sc2])for(const [role,kind]of [['input','SCENARIO_INPUT'],['event','SCENARIO_EVENT'],['outcome','SCENARIO_OUTCOME']]){
+  const i=d.identity(kind,role+'-'+s.scenario_id,d.ownedNamespace(kind,s));const fields=role==='input'?{input_id:i.declared_id,input_contract_version_pk:contract.contract_version_pk,contract_reference_state:'RESOLVED'}:role==='event'?{event_id:i.declared_id,responsibility:'does work',execution_authority_version_pk:ea.execution_authority_version_pk,authority_reference_state:'RESOLVED'}:{outcome_id:i.declared_id,experience:'done'};d.definition(i,{owner:s.definition_digest.toString('hex'),role},fields,refs,{table:'scenario_'+role,pk:{scenario_version_pk:s.scenario_version_pk}});
+ }
+ const product=def('PRODUCT','product-a',{name:'Product',contract_version_pk:contract.contract_version_pk,contract_reference_state:'RESOLVED'});
+ d.member('outcome_product',{scenario_version_pk:sc.scenario_version_pk,product_definition_pk:product.product_definition_pk},sc,'/product',refs);
+ const variant=d.member('outcome_variant',{scenario_version_pk:sc.scenario_version_pk,variant_id:'ok',terminal:true},sc,'/variant',refs),variant2=d.member('outcome_variant',{scenario_version_pk:sc2.scenario_version_pk,variant_id:'ok',terminal:true},sc2,'/variant',refs);
+ const bp=def('BLUEPRINT','blueprint-a',{capability_pk:cap.capability_pk,capability_version_pk:cap.capability_version_pk,carrier_profile:'proof.v1',source_disposition:'DECLARED'}),bp2=def('BLUEPRINT','blueprint-b',{capability_pk:cap2.capability_pk,capability_version_pk:cap2.capability_version_pk,carrier_profile:'proof.v1',source_disposition:'DECLARED'});
+ const node=(b,id)=>d.member('blueprint_node',{blueprint_version_pk:b.blueprint_version_pk,node_id:id,node_kind:'state',altitude:'CAPABILITY',projection_ordinal:0},b,'/nodes/'+id,refs);
+ const n=node(bp,'a'),n2=node(bp,'b'),foreign=node(bp2,'c');d.member('blueprint_node_scenario',{blueprint_version_pk:bp.blueprint_version_pk,blueprint_node_pk:n.blueprint_node_pk,scenario_version_pk:sc.scenario_version_pk},bp,'/nodes/a',refs);
+ const slot=d.member('provider_slot',{blueprint_version_pk:bp.blueprint_version_pk,slot_id:'slot-a',owner_node_pk:n.blueprint_node_pk},bp,'/slot',refs);
+ const requirement=d.member('slot_mechanic_requirement',{provider_slot_pk:slot.provider_slot_pk,mechanic_version_pk:mechanic.mechanic_version_pk,ordinal:0},bp,'/slot/mechanic',refs);
+ const implementation=d.member('provider_mechanic_implementation',{provider_definition_pk:provider.provider_definition_pk,mechanic_version_pk:mechanic.mechanic_version_pk},provider,'/implementation',refs),implementation2=d.member('provider_mechanic_implementation',{provider_definition_pk:provider2.provider_definition_pk,mechanic_version_pk:mechanic.mechanic_version_pk},provider2,'/implementation',refs);
+ const scope=d.member('provider_binding_scope',{provider_slot_pk:slot.provider_slot_pk,selection_policy:'SINGLE'},bp,'/slot/scope',refs),binding=d.member('provider_binding',{provider_binding_scope_pk:scope.provider_binding_scope_pk,provider_slot_pk:slot.provider_slot_pk,selection_policy:'SINGLE',provider_definition_pk:provider.provider_definition_pk},bp,'/slot/binding',refs);
+ d.member('binding_mechanic_implementation',{provider_binding_pk:binding.provider_binding_pk,provider_slot_pk:slot.provider_slot_pk,provider_definition_pk:provider.provider_definition_pk,slot_mechanic_requirement_pk:requirement.slot_mechanic_requirement_pk,mechanic_version_pk:mechanic.mechanic_version_pk,provider_mechanic_implementation_pk:implementation.provider_mechanic_implementation_pk},bp,'/slot/binding/mechanic',refs);
+ const tr=def('TRANSFORMATION','transform-a',{expression_profile:'json-expression-tree.v1'}),tr2=def('TRANSFORMATION','transform-b',{expression_profile:'json-expression-tree.v1'});
+ const expr=t=>{const n=d.member('transformation_expression_node',{transformation_version_pk:t.transformation_version_pk,node_pointer:'',node_kind:'OBJECT'},t,'',refs);d.member('transformation_root',{transformation_version_pk:t.transformation_version_pk,expression_node_pk:n.expression_node_pk},t,'',refs);return n;};const exp=expr(tr),exp2=expr(tr2);
+ return {d,c,o,cap,cap2,sc,sc2,sc3,contract,contract2,port,port2,mechanic,mechanic2,provider,provider2,profile,authority,ea,op,product,variant,variant2,bp,bp2,n,n2,foreign,slot,requirement,implementation,implementation2,scope,binding,tr,tr2,exp,exp2};
+}
+export const literal=v=>v===null?'NULL':Buffer.isBuffer(v)?'0x'+v.toString('hex'):v instanceof Date?"'"+v.toISOString()+"'":typeof v==='number'?String(v):typeof v==='boolean'?(v?'1':'0'):"N'"+v.replaceAll("'","''")+"'";
+export function insertSql(name,values,{identity=false}={}){if(!name.includes('.'))name='model.'+name;const t=tables.get(name),row={...values};for(const [c,s]of Object.entries(t.columns))if(!Object.hasOwn(row,c)&&(!t.identity||!t.pk.includes(c)))row[c]=s.nullable?null:undefined;if(Object.values(row).some(v=>v===undefined))throw new Error('PROOF_COLUMN_REQUIRED:'+name);const cols=Object.keys(row);const text=`INSERT ${fq(name)}(${cols.map(q).join(',')}) VALUES(${cols.map(c=>literal(row[c])).join(',')});`;return identity?`SET IDENTITY_INSERT ${fq(name)} ON; ${text} SET IDENTITY_INSERT ${fq(name)} OFF;`:text;}
+export const seedSql=d=>loadOrder(d).map(n=>{const t=tables.get(n);return (t.identity?`SET IDENTITY_INSERT ${fq(n)} ON;`:'')+d.rows.get(n).map(r=>insertSql(n,r)).join('\n')+(t.identity?`SET IDENTITY_INSERT ${fq(n)} OFF;`:'');}).join('\n');
