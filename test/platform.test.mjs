@@ -9,6 +9,15 @@ test('pinned platform supplies declared mechanic identities and unique provider 
  assert.equal(d.rows.get('model.provider_mechanic_implementation').length,314);
  assert.equal(d.rows.get('model.provider').length,74);
  assert.equal(d.rows.get('model.provider_profile').length,2);
+ assert.equal(d.rows.get('model.contract').length,616);
+ assert.equal(d.rows.get('model.operation_state_projection').length,3);
+ assert.equal(d.rows.get('model.fixture_assertion_condition').length,432);
+ assert.equal(d.rows.get('model.blueprint_fan_out_set').length,3);
+ // The complete candidate includes shared operations before any model is published.
+ assert.ok(d.rows.get('source.estate_model').every(r=>r.publication_state==='BUILDING'));
+ const sharedIds=new Set(d.rows.get('model.execution_authority').filter(r=>['resolve-governed-agent-step.v1','materialize-admitted-feature-source.v1'].includes(r.execution_authority_id)).map(r=>r.execution_authority_pk));
+ const sharedVersions=new Set(d.rows.get('model.execution_authority_version').filter(r=>sharedIds.has(r.execution_authority_pk)).map(r=>r.execution_authority_version_pk));
+ assert.ok(d.rows.get('model.execution_operation').filter(r=>sharedVersions.has(r.execution_authority_version_pk)).length>=16);
  const links=d.rows.get('model.provider_mechanic_implementation');
  assert.equal(new Set(links.map(r=>r.provider_definition_pk+':'+r.mechanic_version_pk)).size,314);
  const providerDefs=new Set(d.rows.get('model.provider_definition').map(r=>r.provider_definition_pk)),mechanicDefs=new Set(d.rows.get('model.mechanic_version').map(r=>r.mechanic_version_pk));

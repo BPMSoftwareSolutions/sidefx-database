@@ -25,13 +25,16 @@ function rowSetDigest(name,rows){
  return digest(hashes.sort().join('\n'));
 }
 async function writeState(file,value){await fs.mkdir(path.dirname(file),{recursive:true});await fs.writeFile(file+'.tmp',JSON.stringify(value,null,2)+'\n');await fs.rename(file+'.tmp',file);}
-export async function load({dryRun=false,progress=()=>{},publish=true}={}){
+export async function load({dryRun=false,progress=()=>{},publish=true,derive=normalize,stage='migration'}={}){
  if(dryRun)throw new Error('TABLE_COMMIT_MODE: use derive for a read-only preview; committed tables are never rolled back by a later step');
- const ds=await normalize();progress({phase:'NORMALIZED',...ds.summary});const pool=await connect();
- const stateFile=path.join(root,'data/migration/table-checkpoints.json'),plan=migrationPlan();
+ if(!['migration','platform'].includes(stage))throw new Error('INVALID_LOAD_STAGE');
+ const stateFile=path.join(root,'data',stage,'table-checkpoints.json'),plan=migrationPlan();
  let state;try{state=JSON.parse(await fs.readFile(stateFile,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
+ const evaluatedAt=state?.evaluatedAt??new Date().toISOString(),ds=await derive({evaluatedAt});progress({phase:'NORMALIZED',...ds.summary});
  if(state&&(state.snapshot!==ds.summary.snapshot||state.manifest!==ds.summary.manifest||state.schemaDigest!==plan.digest))throw new Error('TABLE_CHECKPOINT_GENERATION_MISMATCH');
- state??={snapshot:ds.summary.snapshot,manifest:ds.summary.manifest,schemaDigest:plan.digest,tables:{}};
+ state??={snapshot:ds.summary.snapshot,manifest:ds.summary.manifest,schemaDigest:plan.digest,evaluatedAt,tables:{}};
+ await writeState(stateFile,state);
+ const resultFile=path.join(root,'data',stage,'load-result.json'),pool=await connect();
  try{
   const history=await pool.request().input('id',sql.NVarChar(100),plan.id).query('SELECT migration_digest FROM source.schema_migration WHERE migration_id=@id');if(history.recordset[0]?.migration_digest!==plan.digest)throw new Error('MIGRATION_HISTORY_MISMATCH');
   const selected=await pool.request().input('snapshot',sql.Binary(32),ds.snapshot.snapshot_digest).input('manifest',sql.Binary(32),ds.model.mapping_manifest_digest).query('SELECT m.estate_model_pk FROM source.current_model cm JOIN source.estate_model m ON m.estate_model_pk=cm.estate_model_pk JOIN source.estate_snapshot s ON s.estate_snapshot_pk=m.estate_snapshot_pk WHERE s.snapshot_digest=@snapshot AND m.mapping_manifest_digest=@manifest AND m.publication_state=\'PUBLISHED\'');
@@ -62,9 +65,10 @@ export async function load({dryRun=false,progress=()=>{},publish=true}={}){
    }catch(e){if(active)await tx.rollback().catch(()=>{});throw e;}
   }
   const result={status:'TABLES_COMMITTED',committedTables:Object.keys(state.tables).length,...ds.summary};
-  await writeState(path.join(root,'data/migration/load-result.json'),result);
-  if(publish){progress({phase:'VALIDATING_COMMITTED_MODEL'});try{await pool.request().input('model',sql.BigInt,ds.model.estate_model_pk).query('EXEC source.publish_model @estate_model_pk=@model');result.status='LOADED_AND_SELECTED';}catch(e){result.status='TABLES_COMMITTED_PUBLICATION_PENDING';result.publicationError=e.message;await writeState(path.join(root,'data/migration/load-result.json'),result);throw new Error('TABLES_REMAIN_COMMITTED; publication failed: '+e.message);}}
-  await writeState(path.join(root,'data/migration/load-result.json'),result);return result;
+  await writeState(resultFile,result);
+  if(ds.artifactReport)await writeState(path.join(root,'data',stage,'appearance-coverage.json'),ds.artifactReport);
+  if(publish){progress({phase:'VALIDATING_COMMITTED_MODEL'});try{await new sql.Request(pool,{requestTimeout:600000}).input('model',sql.BigInt,ds.model.estate_model_pk).query('EXEC source.publish_model @estate_model_pk=@model');result.status='LOADED_AND_SELECTED';}catch(e){result.status='TABLES_COMMITTED_PUBLICATION_PENDING';result.publicationError=e.message;await writeState(resultFile,result);throw new Error('TABLES_REMAIN_COMMITTED; publication failed: '+e.message);}}
+  await writeState(resultFile,result);return result;
  }finally{await pool.close();}
 }
 if(process.argv[1]===fileURLToPath(import.meta.url))try{const r=await load({dryRun:process.argv.includes('--dry-run'),publish:!process.argv.includes('--load-only'),progress:x=>{if(x.table)console.log(`${x.status}: ${x.table} — ${x.rows} rows (${x.seconds}s)`);else console.log(x.phase);}});console.log(JSON.stringify({status:r.status,committedTables:r.committedTables},null,2));}catch(e){console.error(JSON.stringify({error:e.message}));process.exitCode=1;}

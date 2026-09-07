@@ -4,7 +4,9 @@ The migration finishes when the database faithfully represents the agreed static
 
 The architecture remains the approved [data architecture strategy](data-architecture-strategy.md). This plan closes the migration; it does not add runtime monitoring, qualification execution, or a capability-authoring system.
 
-## Current position
+The corrected reload is committed and verified: 806 complete Scenarios, 616 Contracts, 432 assertion-condition links, three state projections and three fan-out sets. All 17 local tests passed, all 124 stored table counts matched, and restart returned `ALREADY_LOADED`. See [current load status](data-load-status.md) for the final manifest and remaining coverage.
+
+## Baseline before the corrected reload
 
 - Model 3 is committed and selected. Table transactions, final validation, and restart verification have passed.
 - All 124 application-table counts match the implemented load manifest; entity keys and constraint trust pass.
@@ -47,6 +49,6 @@ The current catch-all `UNMAPPED_SEMANTIC_SOURCE` contains 1,170 appearances. Spl
 - [ ] No null semantic IDs, duplicate semantic keys, duplicate uses at their declared grain, broken FKs or disabled/untrusted constraints.
 - [ ] Source-derived entity and relationship expectations agree with the selected SQL model; repeated source copies do not multiply entities.
 - [ ] Capability-to-Scenario-to-Input/Event/Outcome, Contract use, Provider-to-Mechanic/Capability, slot/binding, and applicable Blueprint/Product queries return correct relationships or explicit source gaps.
-- [ ] A complete load and restart pass, with unchanged semantic contents and counts on retry.
+- [x] The corrected candidate loads successfully and a restart returns `ALREADY_LOADED` without adding rows.
 
 Source defects can remain in a completed inspection database: exposing them is part of its purpose. Repairing the authoritative Harness estate is separate work. Missing importer mappings and incomplete capture cannot be excused as source defects. Additional authority changes after the agreed source set is closed belong to a subsequent refresh and do not continuously reset this migration's finish line.

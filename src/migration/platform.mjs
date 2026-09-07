@@ -7,8 +7,7 @@ import {tables,digest} from './catalog.mjs';
 
 export async function platform({evaluatedAt=new Date().toISOString()}={}){
  const cfg=parseJson(await fs.readFile(new URL('../../config/platform-normalization.json',import.meta.url)));
- const baseState=parseJson(await fs.readFile(new URL('../../data/completeness/table-checkpoints.json',import.meta.url)));
- const ds=await complete({evaluatedAt:baseState.evaluatedAt});if(ds.summary.manifest!==baseState.manifest)throw new Error('BASE_MAPPING_CHANGED');
+ const ds=await complete({evaluatedAt});
  const baseCounts=ds.counts(),baseModel=ds.model,baseSnapshot=ds.snapshot,baseRule=ds.rule;
  const original=parseJson(await fs.readFile(new URL('../../data/snapshots/'+cfg.baseSnapshot.slice(7)+'.json',import.meta.url)));
  const lockArtifact=original.artifacts.find(a=>a.sourcePath==='package-lock.json'&&a.sourceClass==='REPOSITORY_TRACKED');

@@ -95,6 +95,9 @@ export async function complete({evaluatedAt=new Date().toISOString()}={}){
    if(n.providerSlot){const slot=ds.member('provider_slot',{blueprint_version_pk:d.blueprint_version_pk,slot_id:n.nodeId,owner_node_pk:r.blueprint_node_pk},d,ptr+'/providerSlot',[o]);const ps=allDefs.filter(p=>p.object_kind==='PORT'&&p.port_id===n.providerSlot.portId&&p.address.namespace==='sidefx:capability:'+cap.capability_id);if(ps.length===1)ds.member('slot_port_requirement',{provider_slot_pk:slot.provider_slot_pk,port_version_pk:ps[0].port_version_pk,ordinal:0,role:n.providerSlot.mode??null},d,ptr+'/providerSlot/portId',[o]);else ref(a,`/nodes/${i}/providerSlot`,n.providerSlot,'SLOT_PORT',ps.length?'AMBIGUOUS_TARGET':'MISSING_TARGET');}
    for(const [k,p]of (n.requiredProducts??[]).entries())ref(a,`/nodes/${i}/requiredProducts/${k}`,p,'CONVERGENCE_PRODUCT');
   }
+  // A fan-out set is declared by the blueprint and does not depend on edge binding authority. Its members are edges, so membership waits for an edge to resolve.
+  const fanOutSets=new Set();
+  for(const [i,e]of (j.edges??[]).entries()){if(!validId(e.fanOutSetId)||fanOutSets.has(e.fanOutSetId))continue;fanOutSets.add(e.fanOutSetId);ds.member('blueprint_fan_out_set',{blueprint_version_pk:d.blueprint_version_pk,fan_out_set_id:e.fanOutSetId},d,`/semantics/edges/${i}/fanOutSetId`,[o]);}
   for(const [i,e]of (j.edges??[]).entries()){observedEdges++;ref(a,'/edges/'+i,e,'BLUEPRINT_EDGE','DEFINITION_UNRESOLVED','Edge requires exact binding authority and applicable Product/variant endpoints. The captured historical authority pins do not resolve; no normalized edge was fabricated.');}
   if(j.structuralMapping)ref(a,'/structuralMapping',j.structuralMapping,'C4_REALIZATION_AUTHORITY','DEFINITION_UNRESOLVED');
   mark(a,'PARTIAL_CANONICAL_BLUEPRINT','UNSUPPORTED');
