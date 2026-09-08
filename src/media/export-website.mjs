@@ -64,8 +64,8 @@ try{
     const member=members.find(m=>m.path===file);if(!member)throw new Error('MEDIA_CIRCUIT_PUBLIC_FILE_OUTSIDE_BUNDLE');
     if(file==='templates/estate-circuit/viewer.js'&&!manifest.artifacts['/media/library/'+file]){
      const original=(await getBlob(pool,member.digest)).bytes;
-     const bytes=Buffer.concat([original,Buffer.from(`\naddEventListener('load',()=>{const report=()=>parent.postMessage({type:'sidefx-circuit-height',height:document.body.scrollHeight},'*');new ResizeObserver(report).observe(document.body);report();});`)]);
-     const derived=await transaction(pool,tx=>importAsset(tx,{key:'website/stored-circuit-viewer',kind:'CIRCUIT_RUNTIME',bytes,mediaType:'application/javascript',origin:'DERIVED',parents:[{revision:member.revision,role:'ORIGINAL'}],provenance:{recipe:'circuit-embed-sizing/1',originalDigest:member.digest}}));
+     const bytes=Buffer.concat([original,Buffer.from(`\naddEventListener('load',()=>{const stage=document.getElementById('stage');const expose=()=>stage.firstElementChild?.setAttribute('role','group');new MutationObserver(expose).observe(stage,{childList:true});expose();const report=()=>parent.postMessage({type:'sidefx-circuit-height',height:document.body.scrollHeight},'*');new ResizeObserver(report).observe(document.body);report();});`)]);
+     const derived=await transaction(pool,tx=>importAsset(tx,{key:'website/stored-circuit-viewer',kind:'CIRCUIT_RUNTIME',bytes,mediaType:'application/javascript',origin:'DERIVED',parents:[{revision:member.revision,role:'ORIGINAL'}],provenance:{recipe:'circuit-embed-sizing-accessibility/2',originalDigest:member.digest}}));
      await copyBlob('media/library/'+file,derived.blob);
     }else if(!manifest.artifacts['/media/library/'+file])await copyBlob('media/library/'+file,member.digest);
    }
