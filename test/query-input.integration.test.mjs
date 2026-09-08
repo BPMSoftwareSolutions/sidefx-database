@@ -1,8 +1,36 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { query } from '../src/query/run.mjs';
+import { readFile } from 'node:fs/promises';
 
 const integration = { skip: process.env.SIDEFX_QUERY_INTEGRATION !== '1' };
+
+test('capability invocation selects its normalized root and preserves explicit scenario selection', integration, async () => {
+  const statement = await readFile(new URL('../sql/diagnostics/capability-embodiment.sql', import.meta.url), 'utf8');
+  const input = { capabilityId: 'resolve-sidefx-eligible-providers' };
+  const root = await query(statement, { input, retainObjects: false });
+  assert.equal(root.recordsets[0][0].scenario_id, 'resolve-sidefx-eligible-providers');
+  const explicit = await query(statement, { input: { ...input, scenarioId: root.recordsets[0][0].scenario_id }, retainObjects: false });
+  assert.deepEqual(root.recordsets, explicit.recordsets);
+  await assert.rejects(query(statement, { input: { capabilityId: 'nonexistent-capability-for-cli-test' }, retainObjects: false }), /CAPABILITY_NOT_FOUND/);
+  await assert.rejects(query(statement, { input: { ...input, scenarioId: 'nonexistent-scenario-for-cli-test' }, retainObjects: false }), /SCENARIO_NOT_IN_CAPABILITY/);
+});
+
+test('a memory-only query cannot emit a receipt for unretained objects', async () => {
+  await assert.rejects(query('SELECT 1', { retainObjects: false, writeReceipt: true }), /QUERY_RECEIPT_REQUIRES_RETAINED_OBJECTS/);
+});
+
+test('memory-only queries preserve identities and declare their retention scope', integration, async () => {
+  const statement = 'SELECT @snapshot_id AS snapshot_id, @input AS input';
+  const options = { input: { capabilityId: 'memory-only-query-proof' } };
+  const retained = await query(statement, options);
+  const memory = await query(statement, { ...options, retainObjects: false });
+  assert.equal(Object.hasOwn(retained, 'objectRetention'), false);
+  assert.equal(memory.objectRetention, 'MEMORY_ONLY');
+  assert.equal(Object.hasOwn(memory, 'receiptPath'), false);
+  const { objectRetention, ...unchanged } = memory;
+  assert.deepEqual(unchanged, retained);
+});
 
 test('query binds Unicode and SQL-looking request values as data', integration, async () => {
   const input = { capabilityId: "é能力'; SELECT 'injected' AS unexpected; --" };

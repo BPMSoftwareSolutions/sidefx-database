@@ -1,5 +1,5 @@
 import { connect, sql } from '../ingest/database.mjs';
-import { config, hash, stable, receipt, putBlob } from '../core.mjs';
+import { config, digest, hash, stable, receipt, putBlob } from '../core.mjs';
 
 export function normalizeSql(value) {
   if(value instanceof Date)return value.toISOString();
@@ -10,7 +10,9 @@ export function normalizeSql(value) {
   return value;
 }
 
-export async function query(statement,{writeReceipt=false,rowLimit,committed=false,input}={}) {
+export async function query(statement,{writeReceipt=false,retainObjects=true,rowLimit,committed=false,input}={}) {
+  if(typeof retainObjects!=='boolean')throw new Error('INVALID_QUERY_OBJECT_RETENTION');
+  if(!retainObjects&&writeReceipt)throw new Error('QUERY_RECEIPT_REQUIRES_RETAINED_OBJECTS');
   if(typeof statement!=='string'||!statement.trim())throw new Error('QUERY_TEXT_REQUIRED');
   const inputText=input===undefined?null:JSON.stringify(input);
   if(input!==undefined&&typeof inputText!=='string')throw new Error('QUERY_INPUT_MUST_BE_JSON');
@@ -47,7 +49,9 @@ export async function query(statement,{writeReceipt=false,rowLimit,committed=fal
     // Hash each result as a sorted multiset; row order without ORDER BY has no meaning.
     const resultDigest=hash(recordsets.map(r=>r.map(stable).sort()));
     await tx.rollback();begun=false;
-    const body={snapshotId:pinned.snapshot_id,projectionDigest:pinned.projection_id,viewDefinitionDigest:await putBlob(Buffer.from(stable(definitions))),queryDigest:await putBlob(Buffer.from(statement)),resultDigest,resultObjectDigest:await putBlob(Buffer.from(stable(recordsets))),resultCanonicalization:'sorted-multiset-per-recordset.v1',rowLimit:limit,truncated,rowCounts:recordsets.map(r=>r.length),disposition:truncated?'READ_QUERY_TRUNCATED':'READ_QUERY_COMPLETE'};
+    const identify=retainObjects?putBlob:digest;
+    const body={snapshotId:pinned.snapshot_id,projectionDigest:pinned.projection_id,viewDefinitionDigest:await identify(Buffer.from(stable(definitions))),queryDigest:await identify(Buffer.from(statement)),resultDigest,resultObjectDigest:await identify(Buffer.from(stable(recordsets))),resultCanonicalization:'sorted-multiset-per-recordset.v1',rowLimit:limit,truncated,rowCounts:recordsets.map(r=>r.length),disposition:truncated?'READ_QUERY_TRUNCATED':'READ_QUERY_COMPLETE'};
+    if(!retainObjects)body.objectRetention='MEMORY_ONLY';
     Object.assign(body,inputIdentity);
     const proof=writeReceipt?await receipt('query',body):body;
     return {...proof,recordsets};

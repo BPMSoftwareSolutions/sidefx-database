@@ -1,12 +1,13 @@
 -- @input is JSON bound by the existing restricted query reader.
--- Required: capabilityId, scenarioId. Optional: namespaceId.
+-- Required: capabilityId. Optional: scenarioId, namespaceId.
+-- Omitting scenarioId selects the declared normalized root, never an ID heuristic.
 -- Return the selected Scenario and the complete retained Capability authority.
 -- SDA owns downstream traversal, contract admission and mechanic resolution.
 DECLARE @capability_id nvarchar(4000) = JSON_VALUE(@input, '$.capabilityId');
 DECLARE @scenario_id nvarchar(4000) = JSON_VALUE(@input, '$.scenarioId');
 DECLARE @namespace_id nvarchar(4000) = JSON_VALUE(@input, '$.namespaceId');
-IF NULLIF(@capability_id, '') IS NULL OR NULLIF(@scenario_id, '') IS NULL
-    THROW 51000, 'CAPABILITY_AND_SCENARIO_REQUIRED', 1;
+IF NULLIF(@capability_id, '') IS NULL
+    THROW 51000, 'CAPABILITY_REQUIRED', 1;
 
 DECLARE @matches bigint, @capability_pk bigint, @capability_version_pk bigint,
         @capability_definition_pk bigint, @scenario_version_pk bigint,
@@ -24,6 +25,15 @@ WHERE ec.estate_model_pk = @estate_model_pk AND c.capability_id = @capability_id
   AND (@namespace_id IS NULL OR n.namespace_id = @namespace_id);
 IF @matches = 0 THROW 51000, 'CAPABILITY_NOT_FOUND', 1;
 IF @matches <> 1 THROW 51000, 'CAPABILITY_NAMESPACE_AMBIGUOUS', 1;
+
+IF @scenario_id IS NULL
+BEGIN
+    SELECT @matches = COUNT_BIG(*), @scenario_id = MAX(s.scenario_id)
+    FROM model.capability_root_scenario r
+    JOIN model.scenario s ON s.scenario_pk = r.scenario_pk
+    WHERE r.capability_version_pk = @capability_version_pk;
+    IF @matches <> 1 THROW 51000, 'CAPABILITY_ROOT_SCENARIO_UNRESOLVED', 1;
+END;
 
 SELECT @matches=COUNT_BIG(*),@scenario_version_pk = MAX(cs.scenario_version_pk)
 FROM model.capability_scenario cs

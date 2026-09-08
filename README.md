@@ -82,6 +82,17 @@ Extension loading also applies migrations 002 and 003: corrected coverage views 
 
 `npm run query` pins the selected model, impersonates `sidefx_reader` with `NO REVERT`, applies a row limit, and closes its dedicated connection. The reader can SELECT the normalized and supporting schemas, and cannot mutate them. The command supplies `@estate_model_pk`, `@snapshot_id`, and the mapping manifest digest as `@projection_id`. Query receipts are off by default. During a load, use `npm run query -- --committed --sql "SELECT COUNT_BIG(*) FROM model.capability"` to inspect committed tables before final model selection.
 
+JavaScript consumers can request `query(sql, { retainObjects: false })` for memory-only delivery. The reader preserves the same model pin, restricted SQL role, values, and content digests, and returns `objectRetention: "MEMORY_ONLY"`; it does not write query/result objects to the local store. This option cannot be combined with `writeReceipt: true`. Default queries still retain their content objects even when receipt files are disabled.
+
+`sql/diagnostics/capability-embodiment.sql` accepts a bound `capabilityId` with
+optional `namespaceId` and `scenarioId`. When the Scenario is omitted, the query
+selects `model.capability_root_scenario` for the exact capability version. Missing
+or ambiguous capabilities and unresolved roots fail explicitly. It returns the
+selected normalized identity and retained source bytes; it does not execute or
+materialize them. The independent `sfx-embody` provider consumes this query for
+database-to-memory `sfx capability invoke`. Live query acceptance runs with
+`SIDEFX_QUERY_INTEGRATION=1` and `node --test test/query-input.integration.test.mjs`.
+
 The ordinary importer can append candidate data and invoke the owner-executed publication procedure. It cannot update/delete data, disable constraints, change migration history, or write the selected-model pointer. Publication takes an exclusive writer lock and runs the database gates in the same transaction. Published definitions and their members are immutable.
 
 This workspace writes its own inspection database and local artifacts. It does not change, admit, publish or execute Harness capabilities.
