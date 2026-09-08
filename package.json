@@ -20,7 +20,8 @@
     "verify": "node src/cli.mjs verify",
     "check": "node src/cli.mjs check",
     "query": "node src/cli.mjs query",
-    "test": "node --test"
+    "test": "node --test",
+    "expectations": "node src/migration/expectations.mjs --write"
   },
   "dependencies": {
     "@cucumber/gherkin": "42.0.1",
