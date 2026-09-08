@@ -1,6 +1,8 @@
 # Estate visual assets and website discovery
 
-Status: proposed additive storage and website integration design, updated 2026-09-08. The inventory below was queried from the selected live database through the existing restricted reader. This document does not apply a migration, generate images, or modify semantic authority.
+Status: additive storage implemented 2026-09-08 by `005-media-registry.sql` and `006-media-integrity.sql`. `src/media/` now imports, generates, reviews, selects, publishes and restores media. Semantic authority remains unchanged. The original inventory below is historical; current import/coverage details are in the website audit.
+
+The baseline audit found 125 user tables and no media schema. The new `media` schema now stores original bytes, derivatives, exact foreign-key subject bindings, immutable provenance/reviews, selections, generation requests and closed circuit bundles. Ten distinct subjects have reviewed images, and 810 matched scenario bundles with 5,568 files have been imported. Every current capability, scenario, mechanic and provider definition has image requirements; 1,383 additional Nano Banana jobs remain queued. See the [website audit](C:/lab/repos/sfx-platform/docs/visual-integration-audit.md) and [media operations](C:/lab/repos/sfx-platform/docs/media-operations.md) for verification and recovery.
 
 ## Observed estate
 
@@ -26,6 +28,8 @@ The inspected query completed with `READ_QUERY_COMPLETE`, `truncated: false`. It
 | Provider profiles | 6 | 6 definitions |
 
 The first image inventory contains **484 subjects** for the 219 managed capabilities, 191 mechanics and 74 providers. Including the 70 additional platform capability identities gives **554 subjects**. These are subject counts, not generation-call counts or a statement that imagery is already present. Revisions, crops and production failures have their own accounting.
+
+With mandatory artwork for all 824 scenarios, the requirement expands to **1,308 subjects** in the managed-capability scope, or **1,378 subjects** across all 289 selected capability identities. Exact definition bindings, derivatives and shared grammar assets are accounted for separately. Coverage includes selected subjects without a website page; route availability cannot remove a subject from the requirement registry.
 
 The pasted mechanic inventory contains exactly the same 191 mechanic IDs as this selected generation. This comparison establishes ID-set agreement, not equivalence of every definition field or runtime implementation.
 
@@ -67,6 +71,8 @@ All 824 scenarios currently have the three face members; that is weaker than com
 ## Storage decision
 
 **Generated image bytes must be stored durably in this SQL Server database, together with generation provenance and entity bindings.** A local file path, provider URL, external object-store URL or CDN URL alone does not satisfy this requirement. Keep original outputs, reviewed derivatives, and any circuit/vector source used to produce those derivatives recoverable from the database.
+
+Store complete infographic and playable circuit bundles through the same media registry. Their versioned manifests bind authored SCL, canonical graph, base/enhanced SVG, layout anchors, animation plans, component materials, and the exact grammar/renderer/player assets needed for reconstruction. Retain posters, captions and film bytes where those are part of a published product. All referenced bytes must be recoverable without the content-lab folder or CDN. Give shared grammar/material assets their own versioned identities and typed references; do not invent an estate entity binding for a global symbol or count it as an entity's dedicated artwork.
 
 Use an additive `media` schema. Semantic tables retain their existing meaning. The current `source.content_object` implementation demonstrates the content-addressed `varbinary(max)` pattern, but generated visual assets belong to media production rather than captured estate testimony. Do not insert generated art as a source declaration or change immutable semantic definitions to attach an image.
 
@@ -115,12 +121,12 @@ Image replacement updates the selected binding, not old bytes. Historical articl
 | Capability | Intended human experience and its inspectable circuit | Dedicated Nano Banana image plus deterministic SCL view |
 | Mechanic | Its declared transformation/responsibility, recognizable at small size | One reusable subject image across occurrences; concrete I/O example only when supported by the definition |
 | Provider | The provider's declared role and its supported mechanics/ports | Distinct provider portrait/tile; generated art is not an official logo or proof of affiliation |
-| Scenario | Input → event → outcome and the intended experience | Exact scenario owner/revision; source-derived circuit before decorative enhancement |
+| Scenario | Dedicated Nano Banana image for every scenario, plus its I/E/O circuit | Exact scenario owner/revision; a related capability image does not fill the scenario's requirement |
 | Blueprint | Its declared graph/architecture | Deterministic geometry first; incomplete topology remains visible |
 | Port/contract | Required responsibility or data boundary | Reuse the typed grammar; richer illustration when its detail page or teaching use requires it |
 | Input/event/outcome, authority, evidence, provider profile | Typed symbol and optional contextual explanation | Extend through the same registry; do not issue unique generative jobs for every occurrence of a shared symbol |
 
-Core coverage is mandatory for each capability, mechanic and provider. Scenarios/blueprints and other subjects receive explicit requirements when surfaced in pages, teaching material or authoring. This defines “etc.” without turning thousands of repeated graph primitives into separate image-generation jobs. Shared symbols/materials coexist with distinct entity artwork.
+Core coverage is mandatory for each capability, scenario, mechanic and provider, regardless of whether the subject is featured in a page or lesson. Blueprints and other subjects receive explicit requirements when surfaced in pages, teaching material or authoring. This defines “etc.” without turning thousands of repeated graph primitives into separate image-generation jobs. Shared symbols/materials coexist with distinct entity artwork.
 
 ## Website and IDE use
 
