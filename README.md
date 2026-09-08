@@ -2,6 +2,8 @@
 
 Normalized SQL Server inspection of the SideFX estate. The semantic baseline is in [data-architecture-strategy.md](docs/data-architecture-strategy.md); the physical contract is in [physical-data-model-review.md](docs/physical-data-model-review.md). See [data-load-status.md](docs/data-load-status.md) for current committed data and coverage, [migration-closure.md](docs/migration-closure.md) for the closed migration's final state and the disposition of every empty table, and [migration-001.md](docs/migration-001.md) for the initial schema implementation.
 
+Website discovery and generated-image storage are specified in [website-visual-assets.md](docs/website-visual-assets.md). Its [read-only inventory query](sql/diagnostics/website-visual-inventory.sql) reports selected mechanics, providers, their implementation relationships, scenario faces and blueprint coverage. The proposed media schema is not installed by the existing migration commands.
+
 ## Local setup
 
 Use Node.js 20 or later and install dependencies with `npm ci`. Source code, SQL, configuration and documentation are tracked in Git. Captured estate data, load checkpoints, receipts, dependencies and environment files remain local under the existing `.gitignore` rules.
