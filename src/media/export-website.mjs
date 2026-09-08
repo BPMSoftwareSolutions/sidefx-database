@@ -63,7 +63,13 @@ try{
    const selected=rows.find(r=>r.definitionPk===circuit.definitionPk&&r.purpose==='CIRCUIT'&&r.state==='READY'&&r.revision===circuit.bundleRevision);
    if(!selected)continue;
    const members=(await pool.request().input('id',sql.VarChar(64),circuit.bundleRevision).query(`SELECT m.relative_path path,m.member_revision_id revision,LOWER(CONVERT(varchar(64),r.blob_digest,2)) digest FROM media.bundle_member m JOIN media.asset_revision r ON r.revision_id=m.member_revision_id WHERE m.bundle_revision_id=@id`)).recordset;
-   for(const file of circuit.publicFiles){
+   // ADR 0001: the website renders topology from validated graph data, so the compiled diagram
+   // pages, catalogs, per-view scripts and viewer runtime are no longer delivered. The material
+   // textures the renderer references are still exported; SQL retains every dropped artifact.
+   const delivered=circuit.scope==='DECLARED_SOURCE_TOPOLOGY'
+    ?circuit.publicFiles.filter(f=>f.includes('/estate-topology/textures/'))
+    :circuit.publicFiles;
+   for(const file of delivered){
     const member=members.find(m=>m.path===file);if(!member)throw new Error('MEDIA_CIRCUIT_PUBLIC_FILE_OUTSIDE_BUNDLE');
     const replacement=runtime?.files.find(r=>r.path===file);
     if(replacement){
@@ -76,7 +82,9 @@ try{
      await copyBlob('media/library/'+file,derived.blob);
     }else if(!manifest.artifacts['/media/library/'+file])await copyBlob('media/library/'+file,member.digest);
    }
-   manifest.circuits.push({capabilityId:circuit.capabilityId,capabilityDefinitionPk:circuit.capabilityDefinitionPk,scenarioId:circuit.scenarioId,definitionPk:circuit.definitionPk,objectPk:circuit.objectPk,bundleRevision:circuit.bundleRevision,label:circuit.label,url:'/media/library/'+circuit.entry,artifacts:circuit.publicFiles.map(f=>'/media/library/'+f),scope:circuit.scope??'DECLARED_SOURCE_BOUNDARY',topologyViews:circuit.topologyViews??0});
+   // A topology circuit no longer has a delivered entry page to point at; the website resolves it
+   // through generated/topology instead, so it is not published as a stored circuit.
+   if(circuit.scope!=='DECLARED_SOURCE_TOPOLOGY')manifest.circuits.push({capabilityId:circuit.capabilityId,capabilityDefinitionPk:circuit.capabilityDefinitionPk,scenarioId:circuit.scenarioId,definitionPk:circuit.definitionPk,objectPk:circuit.objectPk,bundleRevision:circuit.bundleRevision,label:circuit.label,url:'/media/library/'+circuit.entry,artifacts:circuit.publicFiles.map(f=>'/media/library/'+f),scope:circuit.scope??'DECLARED_SOURCE_BOUNDARY',topologyViews:circuit.topologyViews??0});
   }
  }
  manifest.coverage=(await pool.request().query('SELECT object_kind kind,purpose,state,COUNT(*) count FROM media.v_requirement WHERE is_current=1 GROUP BY object_kind,purpose,state ORDER BY object_kind,purpose,state')).recordset;
