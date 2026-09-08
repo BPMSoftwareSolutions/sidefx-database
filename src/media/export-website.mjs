@@ -54,6 +54,9 @@ try{
   manifest.editions.push({id:edition.id,definitionPk:edition.definitionPk,bundleRevision:edition.bundleRevision,storyTitle:edition.storyTitle,humanProblem:edition.humanProblem,experience:edition.experience,circuitCount:edition.circuitCount,circuitUrl,image:matching?.url??null,entry:library(edition.entry),film:library(Object.entries(imported.files).find(([,v])=>v.revision===edition.film?.revision)?.[0]),captions:library(Object.entries(imported.files).find(([,v])=>v.revision===edition.captions?.revision)?.[0])});
  }
  const circuitImport=await readCatalog(pool,'circuits',source);
+ let runtime=null;
+ try{runtime=await readCatalog(pool,'topology-runtime',source);}catch(e){if(e.message!=='MEDIA_CATALOG_MISSING:topology-runtime')throw e;}
+ if(runtime&&(runtime.profile!=='sidefx-estate-topology.v1'||sha(jsonBytes(runtime.source))!==sha(jsonBytes(source))))throw new Error('MEDIA_TOPOLOGY_RUNTIME_SOURCE_MISMATCH');
  if(circuitImport){
   if(sha(jsonBytes(circuitImport.source))!==sha(jsonBytes(inventory.source)))throw new Error('MEDIA_CIRCUIT_EXPORT_GENERATION_MISMATCH');
   for(const circuit of circuitImport.circuits){
@@ -62,7 +65,11 @@ try{
    const members=(await pool.request().input('id',sql.VarChar(64),circuit.bundleRevision).query(`SELECT m.relative_path path,m.member_revision_id revision,LOWER(CONVERT(varchar(64),r.blob_digest,2)) digest FROM media.bundle_member m JOIN media.asset_revision r ON r.revision_id=m.member_revision_id WHERE m.bundle_revision_id=@id`)).recordset;
    for(const file of circuit.publicFiles){
     const member=members.find(m=>m.path===file);if(!member)throw new Error('MEDIA_CIRCUIT_PUBLIC_FILE_OUTSIDE_BUNDLE');
-    if(file==='templates/estate-circuit/viewer.js'&&!manifest.artifacts['/media/library/'+file]){
+    const replacement=runtime?.files.find(r=>r.path===file);
+    if(replacement){
+     if(!replacement.baseRevisions.includes(member.revision)&&replacement.blob!==member.digest)throw new Error('MEDIA_TOPOLOGY_RUNTIME_BASE_MISMATCH');
+     await copyBlob('media/library/'+file,replacement.blob);
+    }else if(file==='templates/estate-circuit/viewer.js'&&!manifest.artifacts['/media/library/'+file]){
      const original=(await getBlob(pool,member.digest)).bytes;
      const bytes=Buffer.concat([original,Buffer.from(`\naddEventListener('load',()=>{const stage=document.getElementById('stage');const expose=()=>stage.firstElementChild?.setAttribute('role','group');new MutationObserver(expose).observe(stage,{childList:true});expose();const report=()=>parent.postMessage({type:'sidefx-circuit-height',height:document.body.scrollHeight},'*');new ResizeObserver(report).observe(document.body);report();});`)]);
      const derived=await transaction(pool,tx=>importAsset(tx,{key:'website/stored-circuit-viewer',kind:'CIRCUIT_RUNTIME',bytes,mediaType:'application/javascript',origin:'DERIVED',parents:[{revision:member.revision,role:'ORIGINAL'}],provenance:{recipe:'circuit-embed-sizing-accessibility/2',originalDigest:member.digest}}));
