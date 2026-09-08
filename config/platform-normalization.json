@@ -1,14 +1,16 @@
 {
   "ruleId": "sidefx-pinned-platform-normalization.v3",
   "bootstrapRepository": "C:/lab/repos/sda-bootstrap",
-  "bootstrapRevision": "87ae918ce46fe4acadd0aecbdcb030c9b55043d9",
-  "baseSnapshot": "sha256:86d58414531642348bc013dd5bb41aaa7fbb5ce75b7ae6b48847d3c91fd60fb7",
+  "bootstrapRevision": "78e23b66acf3ec481c1e8c44a52e922b1e4a3f47",
+  "baseSnapshot": "sha256:3858fff15026a9e8fe79a4f9138c6224dd7aaae43dd7454a6895af53a120f398",
   "sources": [
     "package.json",
     "platform/kernel/semantic-authority/consumer/sda-platform-capabilities.semantic-authority.json",
     "platform/kernel/semantic-authority/consumer/semantic-value-mechanics.authority.v1.json",
     "platform/kernel/semantic-authority/consumer/platform-effect-mechanics.authority.v1.json",
-    "platform/kernel/semantic-authority/consumer/node-mechanic-registry.authority.v1.json"
+    "platform/kernel/semantic-authority/consumer/node-mechanic-registry.authority.v1.json",
+    "platform/kernel/semantic-authority/consumer/python-mechanic-registry.authority.v1.json",
+    "platform/kernel/semantic-authority/consumer/csharp-mechanic-registry.authority.v1.json"
   ],
   "namespaces": {
     "PROVIDER": "sidefx:providers",

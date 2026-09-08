@@ -54,9 +54,12 @@ export async function platform({evaluatedAt=new Date().toISOString()}={}){
    }
   }
  }
- const registry=sources.get('platform/kernel/semantic-authority/consumer/node-mechanic-registry.authority.v1.json');
- define('AUTHORITY',registry.json.authorityId,registry.json,{authority_kind:'MECHANIC_REGISTRY',authority_profile:registry.json.registryType},[observe(registry,'',registry.json,'AUTHORITY',registry.json.authorityId)]);
- for(const [i,p]of registry.json.graphProviderProfiles.entries()){const o=observe(registry,'/graphProviderProfiles/'+i,p,'PROVIDER_PROFILE',p.profileId),d=define('PROVIDER_PROFILE',p.profileId,p,{profile_name:null,profile_authority:registry.json.authorityId},[o]);for(const [ordinal,key]of ['effectClassification','testimonyRequired'].entries())if(Object.hasOwn(p,key))ds.member('provider_profile_constraint',{provider_profile_version_pk:d.provider_profile_version_pk,ordinal,constraint_kind:'DECLARED_REQUIREMENT',constraint_term:key,operand_content_pk:ds.json(p[key]).content_object_pk},d,'/semantics/'+key,[o]);}
+  const registries=[...sources.values()].filter(s=>s.json.registryType?.endsWith('-mechanic-registry-authority.v1'));
+  if(!registries.length)throw new Error('NO_MECHANIC_REGISTRY_SOURCES');
+  for(const registry of registries){
+   define('AUTHORITY',registry.json.authorityId,registry.json,{authority_kind:'MECHANIC_REGISTRY',authority_profile:registry.json.registryType},[observe(registry,'',registry.json,'AUTHORITY',registry.json.authorityId)]);
+   for(const [i,p]of registry.json.graphProviderProfiles.entries()){const o=observe(registry,'/graphProviderProfiles/'+i,p,'PROVIDER_PROFILE',p.profileId),d=define('PROVIDER_PROFILE',p.profileId,p,{profile_name:null,profile_authority:registry.json.authorityId},[o]);for(const [ordinal,key]of ['effectClassification','testimonyRequired'].entries())if(Object.hasOwn(p,key))ds.member('provider_profile_constraint',{provider_profile_version_pk:d.provider_profile_version_pk,ordinal,constraint_kind:'DECLARED_REQUIREMENT',constraint_term:key,operand_content_pk:ds.json(p[key]).content_object_pk},d,'/semantics/'+key,[o]);}
+  }
  const irc=ds.json({rule:'pinned-platform-coverage.v1',mapping_digest:ds.rule.rule_digest.toString('hex')});const ir=ds.add('analysis.integrity_rule',{rule_id:'pinned-platform-coverage.v1',rule_digest:irc.content_digest,layer:1,rule_content_pk:irc.content_object_pk});
  // Carry existing reference gaps into the expanded source generation with their exact new observations.
  const carriedInputs=[...new Set(ds.rows.get('analysis.unresolved_reference').filter(r=>r.estate_model_pk===baseModel.estate_model_pk).map(r=>observationMap.get(r.source_observation_pk)))].sort((a,b)=>a-b);

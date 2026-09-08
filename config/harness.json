@@ -5,5 +5,5 @@
   "includeUntracked": true,
   "excludedPaths": [".git/", "node_modules/", ".env", ".env.", "secrets/"],
   "queryRowLimit": 1000,
-  "requestTimeoutMs": 120000
+  "requestTimeoutMs": 600000
 }
