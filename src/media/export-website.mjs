@@ -69,7 +69,7 @@ try{
      await copyBlob('media/library/'+file,derived.blob);
     }else if(!manifest.artifacts['/media/library/'+file])await copyBlob('media/library/'+file,member.digest);
    }
-   manifest.circuits.push({capabilityId:circuit.capabilityId,capabilityDefinitionPk:circuit.capabilityDefinitionPk,scenarioId:circuit.scenarioId,definitionPk:circuit.definitionPk,objectPk:circuit.objectPk,bundleRevision:circuit.bundleRevision,label:circuit.label,url:'/media/library/'+circuit.entry,artifacts:circuit.publicFiles.map(f=>'/media/library/'+f),scope:'DECLARED_SOURCE_BOUNDARY'});
+   manifest.circuits.push({capabilityId:circuit.capabilityId,capabilityDefinitionPk:circuit.capabilityDefinitionPk,scenarioId:circuit.scenarioId,definitionPk:circuit.definitionPk,objectPk:circuit.objectPk,bundleRevision:circuit.bundleRevision,label:circuit.label,url:'/media/library/'+circuit.entry,artifacts:circuit.publicFiles.map(f=>'/media/library/'+f),scope:circuit.scope??'DECLARED_SOURCE_BOUNDARY',topologyViews:circuit.topologyViews??0});
   }
  }
  manifest.coverage=(await pool.request().query('SELECT object_kind kind,purpose,state,COUNT(*) count FROM media.v_requirement WHERE is_current=1 GROUP BY object_kind,purpose,state ORDER BY object_kind,purpose,state')).recordset;

@@ -8,10 +8,15 @@ export async function importFileBatch(pool,files,source){
   const revision=sha(jsonBytes({asset,blob,proof,origin:'IMPORTED',width:null,height:null,parents:[],definitionPk:null,requestId:null}));
   return {path,bytes,mediaType,asset,blob,proofBytes,proof,revision};
  });
+ const existing=(await pool.request().input('ids',sql.NVarChar(sql.MAX),JSON.stringify(prepared.map(r=>r.revision))).query(`SELECT r.revision_id revision,LOWER(CONVERT(varchar(64),r.blob_digest,2)) blob,LOWER(CONVERT(varchar(64),r.provenance_digest,2)) proof,b.byte_length length,b.media_type mediaType FROM OPENJSON(@ids) j JOIN media.asset_revision r ON r.revision_id=j.value JOIN media.blob b ON b.digest=r.blob_digest`)).recordset;
+ const found=new Map(existing.map(r=>[r.revision,r]));
+ for(const r of prepared){const old=found.get(r.revision);if(old&&(old.blob!==r.blob||old.proof!==r.proof||Number(old.length)!==r.bytes.length||old.mediaType!==r.mediaType))throw new Error('MEDIA_EXISTING_REVISION_MISMATCH');}
+ const missing=prepared.filter(r=>!found.has(r.revision));
+ if(missing.length){
  await transaction(pool,async tx=>{
   const table=new sql.Table('#media_files');table.create=true;
   for(const [name,type] of [['asset',sql.VarChar(64)],['logical_key',sql.NVarChar(900)],['revision',sql.VarChar(64)],['blob',sql.Binary(32)],['bytes',sql.VarBinary(sql.MAX)],['length',sql.BigInt],['media_type',sql.VarChar(100)],['proof',sql.Binary(32)],['proof_bytes',sql.VarBinary(sql.MAX)]])table.columns.add(name,type,{nullable:false});
-  for(const r of prepared)table.rows.add(r.asset,'content-lab/'+r.path,r.revision,Buffer.from(r.blob,'hex'),r.bytes,r.bytes.length,r.mediaType,Buffer.from(r.proof,'hex'),r.proofBytes);
+  for(const r of missing)table.rows.add(r.asset,'content-lab/'+r.path,r.revision,Buffer.from(r.blob,'hex'),r.bytes,r.bytes.length,r.mediaType,Buffer.from(r.proof,'hex'),r.proofBytes);
   await new sql.Request(tx).bulk(table);
   await new sql.Request(tx).query(`
    IF EXISTS(SELECT 1 FROM #media_files f JOIN media.blob b ON b.digest=f.blob WHERE b.byte_length<>f.length OR b.media_type<>f.media_type) THROW 51103,'MEDIA_EXISTING_BLOB_MISMATCH',1;
@@ -26,5 +31,6 @@ export async function importFileBatch(pool,files,source){
    DROP TABLE #media_files;
   `);
  });
+ }
  return prepared.map(({path,revision,blob,mediaType})=>({path,revision,blob,mediaType,width:null,height:null}));
 }
