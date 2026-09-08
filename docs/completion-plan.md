@@ -1,5 +1,9 @@
 # Path to migration completion
 
+> **Closed.** All five steps and every checklist item below are satisfied. The closing state, the
+> disposition of all 42 remaining empty tables, and the exact remaining source defects are in
+> [migration-closure.md](migration-closure.md). This document is retained as the plan that was met.
+
 The migration finishes when the database faithfully represents the agreed static estate and every missing fact has an established explanation. Successful inserts and matching loader-generated counts are necessary but do not prove source coverage.
 
 The architecture remains the approved [data architecture strategy](data-architecture-strategy.md). This plan closes the migration; it does not add runtime monitoring, qualification execution, or a capability-authoring system.

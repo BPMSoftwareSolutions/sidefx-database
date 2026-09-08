@@ -1,6 +1,6 @@
 # SideFX Database
 
-Normalized SQL Server inspection of the SideFX estate. The semantic baseline is in [data-architecture-strategy.md](docs/data-architecture-strategy.md); the physical contract is in [physical-data-model-review.md](docs/physical-data-model-review.md). See [data-load-status.md](docs/data-load-status.md) for current committed data and remaining mappings, and [migration-001.md](docs/migration-001.md) for the initial schema implementation.
+Normalized SQL Server inspection of the SideFX estate. The semantic baseline is in [data-architecture-strategy.md](docs/data-architecture-strategy.md); the physical contract is in [physical-data-model-review.md](docs/physical-data-model-review.md). See [data-load-status.md](docs/data-load-status.md) for current committed data and coverage, [migration-closure.md](docs/migration-closure.md) for the closed migration's final state and the disposition of every empty table, and [migration-001.md](docs/migration-001.md) for the initial schema implementation.
 
 ## Local setup
 
