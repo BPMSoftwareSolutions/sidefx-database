@@ -24,7 +24,8 @@ try {
   else if (command === 'query') {
     const args=process.argv.slice(3),value=key=>args[args.indexOf(key)+1];
     const statement=args.includes('--file')?await fs.readFile(value('--file'),'utf8'):args.includes('--sql')?value('--sql'):await new Promise((resolve,reject)=>{let s='';process.stdin.setEncoding('utf8');process.stdin.on('data',v=>s+=v);process.stdin.on('end',()=>resolve(s));process.stdin.on('error',reject);});
-    result=await query(statement,{rowLimit:args.includes('--limit')?Number(value('--limit')):undefined,committed:args.includes('--committed')});
+    const input=args.includes('--input')?JSON.parse(await fs.readFile(value('--input'),'utf8')):undefined;
+    result=await query(statement,{rowLimit:args.includes('--limit')?Number(value('--limit')):undefined,committed:args.includes('--committed'),input});
   }
   else throw new Error('COMMAND_NOT_IMPLEMENTED:' + command);
   console.log(JSON.stringify(result, null, 2));
