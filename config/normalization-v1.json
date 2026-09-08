@@ -3,7 +3,7 @@
   "profile": "frozen-estate-inspection.v1",
   "canonicalization": "JCS-IJSON-safe-integers.v1",
   "definitionEnvelope": "sidefx-semantic-definition.v1",
-  "selectedSnapshot": "sha256:3858fff15026a9e8fe79a4f9138c6224dd7aaae43dd7454a6895af53a120f398",
+  "selectedSnapshot": "sha256:a5edf2fd2b1056f68123a884ef19b21568b8c182bc1a863833ac2ca465f7840f",
   "selection": "MANAGED_CAPSULE entries in the verified snapshot. Repository provider catalogs are separate declared external-provider authority.",
   "namespaceBindings": {
     "CAPABILITY": "sidefx:capabilities",

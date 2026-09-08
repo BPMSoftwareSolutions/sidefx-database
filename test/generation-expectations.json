@@ -1,25 +1,25 @@
 {
  "note": "Emitted by src/migration/expectations.mjs. Counts belong to one generation; invariants live in the tests. Regenerate with npm run expectations and review the diff.",
  "complete": {
-  "snapshot": "sha256:3858fff15026a9e8fe79a4f9138c6224dd7aaae43dd7454a6895af53a120f398",
+  "snapshot": "sha256:a5edf2fd2b1056f68123a884ef19b21568b8c182bc1a863833ac2ca465f7840f",
   "declaredBlueprints": 49,
   "loadedBlueprints": 35,
   "observedEdges": 508,
   "newReferenceGaps": 651,
-  "classifications": 8196,
+  "classifications": 8159,
   "coverage": {
-   "total_count": 8196,
+   "total_count": 8159,
    "normalized_count": 4708,
    "unresolved_count": 14,
    "unsupported_count": 1908,
-   "outside_count": 1566
+   "outside_count": 1529
   },
   "counts": {
    "source.estate_snapshot": 1,
-   "source.content_object": 32324,
-   "source.source_appearance": 8196,
+   "source.content_object": 32290,
+   "source.source_appearance": 8159,
    "source.mapping_rule": 2,
-   "source.source_classification": 16392,
+   "source.source_classification": 16318,
    "source.namespace_mapping": 666,
    "source.source_observation": 24220,
    "source.declaration_observation": 19795,
@@ -92,28 +92,28 @@
   }
  },
  "platform": {
-  "snapshot": "sha256:9847398372268c4ff2b5ae36f61c332e6f84ef38418dd478fe6b0f641143f2de",
+  "snapshot": "sha256:1a770ac0795d10665a88166f8d8c968dc5b2d030fdfab2b837aa6071d135f9e9",
   "platform": {
    "providers": 69,
    "mechanics": 191,
    "providerMechanicImplementations": 314,
-   "bootstrapRevision": "78e23b66acf3ec481c1e8c44a52e922b1e4a3f47"
+   "bootstrapRevision": "952de6bfa690fe85d85ca36261f22a1cb63c85eb"
   },
   "estateCapabilities": 219,
-  "appearances": 8203,
+  "appearances": 8166,
   "coverage": {
-   "total_count": 8203,
+   "total_count": 8166,
    "normalized_count": 4714,
    "unresolved_count": 14,
    "unsupported_count": 1908,
-   "outside_count": 1567
+   "outside_count": 1530
   },
   "counts": {
    "source.estate_snapshot": 2,
-   "source.content_object": 32972,
-   "source.source_appearance": 16399,
+   "source.content_object": 32938,
+   "source.source_appearance": 16325,
    "source.mapping_rule": 3,
-   "source.source_classification": 24595,
+   "source.source_classification": 24484,
    "source.namespace_mapping": 1331,
    "source.source_observation": 48911,
    "source.declaration_observation": 40061,

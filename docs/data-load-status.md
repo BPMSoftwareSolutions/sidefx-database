@@ -47,8 +47,8 @@ The load uses `data/platform/table-checkpoints.json`. It builds the complete can
 
 Current generation:
 
-- Snapshot: `sha256:9847398372268c4ff2b5ae36f61c332e6f84ef38418dd478fe6b0f641143f2de`.
-- Mapping manifest: `819be21225c4e644a335863f427bf0ef3ccf1c8526e2a4e49f8cb79603f75d00`.
+- Snapshot: `sha256:1a770ac0795d10665a88166f8d8c968dc5b2d030fdfab2b837aa6071d135f9e9`.
+- Mapping manifest: `e036610730972f246d8e33cd882e45dd793013076aea2e401086b93d4993a7ee`.
 - Load counts: `data/platform/load-result.json`.
 - Database verification: `data/migration/verification.json`.
 - Table commit log: `data/platform/corrected-load.log` (prior generation; the generation-four log is the load result itself).
@@ -88,3 +88,38 @@ These counts describe source appearances, including repeated copies, rather than
 Historical Contract catalog path resolution is corrected. The largest remaining gap is the Blueprint authority pins: **zero of 2,153** blueprint authority references resolve to a declared authority document anywhere in the pinned scope, and 9 of 35 referenced digests are each claimed by three different `authorityId`s. Thirty-five Blueprints have normalized nodes and supported face/Scenario links; their unresolved edge-authority pins have not been replaced with inferred topology. Product, binding, qualification and proof tables have no matching declaration in the agreed scope; an empty table alone does not authorize inventing an entity or assessment.
 
 Use `sidefx.v_load_completeness` for the aggregate and `sidefx.v_source_reference_gap` for source paths and unresolved roles. Appearance-level detail is in `data/platform/appearance-coverage.json`. A successful integrity check proves the committed relational data meets the implemented constraints; it does not erase these mapping gaps.
+
+## Generation five: the merged platform head
+
+The pinned bootstrap moved from `78e23b6…` to `952de6b…`, whose `sdaPlatform.commit`
+points at scenario-driven-architecture `7168110` — the merged cross-target head,
+carrying the declared mechanic conformance vectors, the conformant Node, Python
+and C# transformation evaluators, and the three mechanic registries. The six
+normalization sources are unchanged in content; the moved field is the pin itself.
+
+The base estate snapshot was re-captured as
+`sha256:a5edf2fd2b1056f68123a884ef19b21568b8c182bc1a863833ac2ca465f7840f`, carrying
+the harness lockfile that authorizes the new bootstrap revision. Capture includes
+untracked files, so the re-capture also dropped 37 undeclared artifacts that had
+entered the estate the same way: 35 files under `docs/evidence` and two review
+notes, removed from the harness because nothing declared them. All 37 had been
+classified `OUTSIDE_SCOPE`, so `normalized_count` is unchanged at 4,714 and no
+normalized authority was lost. Source appearances fall from 8,203 to 8,166.
+
+The load committed 81 tables and published the new generation:
+
+- Snapshot: `sha256:1a770ac0795d10665a88166f8d8c968dc5b2d030fdfab2b837aa6071d135f9e9`.
+- Mapping manifest: `e036610730972f246d8e33cd882e45dd793013076aea2e401086b93d4993a7ee`.
+- Load result: `LOADED_AND_SELECTED` (`data/platform/load-result.json`).
+- Database verification: `VERIFIED`.
+
+The first attempt failed with `LOAD_TABLE_source.content_object: write ECONNRESET`
+after the estate was cleared and one table had committed. The checkpoint file
+carried that commit, and the resumed load completed the remaining 80 tables
+without re-inserting it — the restart path exercised by an actual fault rather
+than a drill.
+
+Platform counts are unchanged from generation four: 69 providers, 191 mechanics,
+314 provider-mechanic implementations, 6 provider profiles. The registries and
+their bindings were already in force; this generation moves the platform commit
+they are pinned to.

@@ -1,8 +1,8 @@
 {
   "ruleId": "sidefx-pinned-platform-normalization.v3",
   "bootstrapRepository": "C:/lab/repos/sda-bootstrap",
-  "bootstrapRevision": "78e23b66acf3ec481c1e8c44a52e922b1e4a3f47",
-  "baseSnapshot": "sha256:3858fff15026a9e8fe79a4f9138c6224dd7aaae43dd7454a6895af53a120f398",
+  "bootstrapRevision": "952de6bfa690fe85d85ca36261f22a1cb63c85eb",
+  "baseSnapshot": "sha256:a5edf2fd2b1056f68123a884ef19b21568b8c182bc1a863833ac2ca465f7840f",
   "sources": [
     "package.json",
     "platform/kernel/semantic-authority/consumer/sda-platform-capabilities.semantic-authority.json",
