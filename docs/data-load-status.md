@@ -1,6 +1,6 @@
 # Committed data and mapping coverage
 
-The remaining migration work and its stopping criteria are in [completion-plan.md](completion-plan.md).
+The migration is closed. The disposition of every empty table and the exact remaining source defects are in [migration-closure.md](migration-closure.md); the plan it satisfies is [completion-plan.md](completion-plan.md).
 
 The corrected model 3 is published and selected in the inspection database. **81 table loads committed 1,038,999 rows**, followed by the selected-model pointer. All 124 application-table counts were verified against the corrected manifest. Each table committed separately before the final validation and selection transaction.
 
@@ -47,27 +47,44 @@ The load uses `data/platform/table-checkpoints.json`. It builds the complete can
 
 Current generation:
 
-- Snapshot: `sha256:38debec6dbfa1266f68d903166f69b831c178ffe967208900efcddd9ce2973bc`.
-- Mapping manifest: `81eb41f0faeadcb413d1b5bae9ba991f2d9d753489cfb3a8919c5f72e71f7d28`.
+- Snapshot: `sha256:9847398372268c4ff2b5ae36f61c332e6f84ef38418dd478fe6b0f641143f2de`.
+- Mapping manifest: `819be21225c4e644a335863f427bf0ef3ccf1c8526e2a4e49f8cb79603f75d00`.
 - Load counts: `data/platform/load-result.json`.
 - Database verification: `data/migration/verification.json`.
-- Table commit log: `data/platform/corrected-load.log`.
-- Restart verification: `data/platform/corrected-resume.log`.
+- Table commit log: `data/platform/corrected-load.log` (prior generation; the generation-four log is the load result itself).
+- Restart verification: `data/platform/corrected-resume.log` (prior generation).
 
-## Remaining mapping work
+## Generation four: python and csharp mechanic registries
 
-The expected rows for the implemented mappings are loaded. **The complete estate is not yet fully normalized.** Current source coverage is:
+The pinned bootstrap moved from `87ae918c…` to `78e23b6…`, whose platform closure carries the python and csharp mechanic registries declared on the SDA branch (`0e52d24`) alongside the node registry. The normalization reads all three registry sources, and the platform importer ingests every `*-mechanic-registry-authority.v1` source instead of the node registry alone.
+
+The estate was administratively replaced rather than amended: the immutability triggers were disabled for the duration, 124 tables were cleared in foreign-key-safe order (1,039,000 rows), the triggers re-enabled, and the previous generation's checkpoints preserved under `data/preserved/before-python-csharp-registries-*` before the new load began.
+
+The load committed 81 tables and published the new generation:
+
+- Snapshot: `sha256:9847398372268c4ff2b5ae36f61c332e6f84ef38418dd478fe6b0f641143f2de`.
+- Mapping manifest: `819be21225c4e644a335863f427bf0ef3ccf1c8526e2a4e49f8cb79603f75d00`.
+- Load result: `LOADED_AND_SELECTED` (`data/platform/load-result.json`).
+- Database verification: `VERIFIED` (`data/migration/verification.json`).
+
+New relationships: `model.provider_profile` grew from 2 to **6** (one pure and one effect profile per language), profile constraints from 4 to 12, and the two registry authorities were added. Every one of the 54 atomic mechanics now has a declared native resolution for node, python and csharp.
+
+Readiness was measured per selected scenario with `data/platform/readiness-all.mjs`, which replicates the aggregate view's resolution logic over the requirements function (the aggregate view itself exceeds the query budget). Node, python and csharp account for 100% of requirements on all 10 selected scenario bodies and report `CAN_ATTEMPT_EMBODIMENT`; cpp, go and java remain `NOT_OBSERVABLE` until their registries exist. No mechanic requirement carries more than one binding candidate.
+
+## Source coverage and remaining gaps
+
+Every valid in-scope declaration is loaded and **no table is empty because of a missing importer mapping**. The estate is not fully normalized, because the remaining gaps are source defects and agreed exclusions, each dispositioned in [migration-closure.md](migration-closure.md). Current source coverage is:
 
 | Classification | Source appearances |
 |---|---:|
-| Normalized | 4,712 |
+| Normalized | 4,714 |
 | Unresolved | 14 |
 | Unsupported mapping | 1,908 |
-| Outside declared scope | 1,549 |
-| Total captured and classified | 8,183 |
+| Outside declared scope | 1,567 |
+| Total captured and classified | 8,203 |
 
 These counts describe source appearances, including repeated copies, rather than unique entities. There are 3,804 unresolved reference records in the selected model. This count now includes assertion-condition references that the previous importer did not inspect. All 824 Scenarios have Input, Event and Outcome rows, but 18 do not satisfy the complete-scenario view because required references remain unresolved or absent.
 
-Historical Contract catalog path resolution is corrected. Remaining coverage includes partial interface, fixture and shared-library mappings and historical Blueprint authority references. Thirty-five Blueprints have normalized nodes and supported face/Scenario links. Their unresolved edge-authority pins have not been replaced with inferred topology. Product, binding, qualification and proof tables require explicit matching declarations or supported mappings; an empty table alone does not authorize inventing an entity or assessment.
+Historical Contract catalog path resolution is corrected. The largest remaining gap is the Blueprint authority pins: **zero of 2,153** blueprint authority references resolve to a declared authority document anywhere in the pinned scope, and 9 of 35 referenced digests are each claimed by three different `authorityId`s. Thirty-five Blueprints have normalized nodes and supported face/Scenario links; their unresolved edge-authority pins have not been replaced with inferred topology. Product, binding, qualification and proof tables have no matching declaration in the agreed scope; an empty table alone does not authorize inventing an entity or assessment.
 
 Use `sidefx.v_load_completeness` for the aggregate and `sidefx.v_source_reference_gap` for source paths and unresolved roles. Appearance-level detail is in `data/platform/appearance-coverage.json`. A successful integrity check proves the committed relational data meets the implemented constraints; it does not erase these mapping gaps.
