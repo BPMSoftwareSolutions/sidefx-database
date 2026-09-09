@@ -126,14 +126,16 @@ export async function registerCapabilities(specs, options = {}) {
 
   const pool = await connect();
   let statementCounter = 0;
+  let insertedRows = 0;
   const tick = () => {
     statementCounter++;
-    if (statementCounter % 250 === 0) emit('model-layer-tick', { statements: statementCounter });
+    if (statementCounter % 100 === 0) emit('model-layer-tick', { statements: statementCounter, insertedRows });
   };
   const run = async (text, inputs = {}) => {
     const request = pool.request();
     for (const [name, [type, value]] of Object.entries(inputs)) request.input(name, type, value);
     const result = await request.query(text);
+    for (const affected of result.rowsAffected ?? []) insertedRows += affected;
     tick();
     return result;
   };
