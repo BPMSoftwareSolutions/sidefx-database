@@ -1,4 +1,5 @@
 import { connect, sql } from '../ingest/database.mjs';
+import { pinModel } from './model-pin.mjs';
 import { config, digest, hash, stable, receipt, putBlob } from '../core.mjs';
 
 export function normalizeSql(value) {
@@ -31,11 +32,8 @@ export async function query(statement,{writeReceipt=false,retainObjects=true,row
       await tx.rollback();begun=false;
       return {inspectionState:'COMMITTED_TABLES',...inputIdentity,rowLimit:limit,truncated,rowCounts:recordsets.map(r=>r.length),recordsets};
     }
-    await new sql.Request(tx).query("DECLARE @r int; EXEC @r=sys.sp_getapplock @Resource='sidefx:model-write',@LockMode='Shared',@LockOwner='Transaction',@LockTimeout=30000; IF @r<0 THROW 51000,'Cannot pin inspection model',1;");
-    // HOLDLOCK pins the selected generation throughout this query transaction.
-    const pinned=(await new sql.Request(tx).query("SELECT m.estate_model_pk,'sha256:'+LOWER(CONVERT(varchar(64),s.snapshot_digest,2)) snapshot_id,'sha256:'+LOWER(CONVERT(varchar(64),m.mapping_manifest_digest,2)) projection_id FROM source.current_model cm WITH(HOLDLOCK) JOIN source.estate_model m ON m.estate_model_pk=cm.estate_model_pk JOIN source.estate_snapshot s ON s.estate_snapshot_pk=m.estate_snapshot_pk WHERE cm.singleton_id=1")).recordset[0];
-    if(!pinned)throw new Error('NO_LOADED_SNAPSHOT');
-    const definitions=(await new sql.Request(tx).query("SELECT s.name+'.'+o.name AS object_name,o.type,m.definition FROM sys.objects o JOIN sys.schemas s ON s.schema_id=o.schema_id JOIN sys.sql_modules m ON m.object_id=o.object_id WHERE s.name IN('sidefx','analysis') AND o.type IN('V','IF','TF','FN') ORDER BY s.name COLLATE Latin1_General_100_BIN2,o.name COLLATE Latin1_General_100_BIN2")).recordset;
+    const pinned = await pinModel(tx);
+    const definitions = pinned.definitions;
     // SQL Server enforces the read boundary. NO REVERT prevents submitted SQL
     // from escaping impersonation. This dedicated pool is closed after the query.
     await new sql.Request(tx).batch("EXECUTE AS USER='sidefx_reader' WITH NO REVERT;");
@@ -43,7 +41,7 @@ export async function query(statement,{writeReceipt=false,retainObjects=true,row
     // SET ROWCOUNT also truncates intermediate table-variable inserts and can
     // make aggregate coverage claims false while returning only one result row.
     await new sql.Request(tx).batch('SET LOCK_TIMEOUT 30000;');
-    const result=await new sql.Request(tx).input('estate_model_pk',sql.BigInt,pinned.estate_model_pk).input('snapshot_id',sql.VarChar(71),pinned.snapshot_id).input('projection_id',sql.VarChar(71),pinned.projection_id).input('input',sql.NVarChar(sql.MAX),inputText).query(statement);
+    const result=await new sql.Request(tx).input('estate_model_pk',sql.BigInt,pinned.estate_model_pk).input('snapshot_id',sql.VarChar(71),pinned.snapshot_id).input('projection_id',sql.VarChar(71),pinned.projection_id).input('view_definition_digest',sql.VarChar(71),pinned.viewDefinitionDigest).input('input',sql.NVarChar(sql.MAX),inputText).query(statement);
     const truncated=result.recordsets.some(r=>r.length>limit);
     const recordsets=result.recordsets.map(r=>r.slice(0,limit).map(normalizeSql));
     // Hash each result as a sorted multiset; row order without ORDER BY has no meaning.
