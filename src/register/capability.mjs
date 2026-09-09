@@ -117,19 +117,36 @@ export async function registerCapabilities(specs, options = {}) {
   const plans = [];
   for (const spec of specs) plans.push(await planCapability(spec));
 
+  // Progressive, observable progress. The lane emits one line per phase as it
+  // commits and a tick line every N model-layer statements; validation and
+  // publication announce themselves before running. Nothing here is silent or
+  // backgrounded.
+  const progress = options.progress ?? (line => process.stderr.write(line + '\n'));
+  const emit = (kind, detail) => progress(JSON.stringify({ at: new Date().toISOString(), kind, ...detail }));
+
   const pool = await connect();
+  let statementCounter = 0;
+  const tick = () => {
+    statementCounter++;
+    if (statementCounter % 250 === 0) emit('model-layer-tick', { statements: statementCounter });
+  };
   const run = async (text, inputs = {}) => {
     const request = pool.request();
     for (const [name, [type, value]] of Object.entries(inputs)) request.input(name, type, value);
-    return request.query(text);
+    const result = await request.query(text);
+    tick();
+    return result;
   };
   const scalar = async (text, inputs) => (await run(text, inputs)).recordset?.[0];
 
   const summary = { generation: null, phases: [], capabilities: [], published: false, validated: false };
   const phase = async (name, work) => {
     const start = performance.now();
+    emit('phase-start', { phase: name });
     const rows = await work();
-    summary.phases.push({ phase: name, milliseconds: Math.round(performance.now() - start), rows });
+    const milliseconds = Math.round(performance.now() - start);
+    summary.phases.push({ phase: name, milliseconds, rows });
+    emit('phase-committed', { phase: name, milliseconds, rows });
     return rows;
   };
 
@@ -860,6 +877,7 @@ export async function registerCapabilities(specs, options = {}) {
   // A dry run still builds and validates the generation (committed, resumable);
   // it only withholds the pointer flip.
   if (options.validate !== false) {
+    emit('validate-start', { model, note: 'the validator is the long gate; watch the node-mssql session for the gate currently executing' });
     await phase('validate', async () => {
       await run(`EXEC source.validate_model @m`, { m: [sql.BigInt, model] });
       summary.validated = true;
@@ -867,6 +885,7 @@ export async function registerCapabilities(specs, options = {}) {
     });
   }
   if (options.publish && !options.dryRun) {
+    emit('publish-start', { model });
     await phase('publish', async () => {
       await run(`EXEC source.publish_model @m`, { m: [sql.BigInt, model] });
       summary.published = true;
@@ -875,5 +894,6 @@ export async function registerCapabilities(specs, options = {}) {
   }
 
   summary.disposition = summary.published ? 'PUBLISHED' : (summary.validated ? 'VALIDATED' : 'BUILT');
+  emit('registration-complete', { disposition: summary.disposition, generation: summary.generation });
   return summary;
 }
