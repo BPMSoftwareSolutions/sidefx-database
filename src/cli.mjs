@@ -20,6 +20,17 @@ try {
   else if (command === 'ingest') result = await loadPlatform({dryRun:process.argv.includes('--dry-run'),publish:!process.argv.includes('--load-only'),progress:x=>{if(x.table)console.error(`${x.status}: ${x.table} (${x.rows} rows)`);}});
   else if (command === 'verify') result = await verify();
   else if (command === 'check') result = await verify();
+  else if (command === 'validate') {
+    // Estate-wide audit, moved off the publish path. CI/CD runs this against a
+    // candidate generation; publishing itself only gates on cheap preconditions.
+    const args=process.argv.slice(3),value=key=>args[args.indexOf(key)+1];
+    const model=args.includes('--model')?Number(value('--model')):undefined;
+    if(!Number.isInteger(model))throw new Error('VALIDATE_MODEL_REQUIRED');
+    const {connect}=await import('./ingest/database.mjs');
+    const pool=await connect();
+    try{ await pool.request().query(`EXEC source.validate_model ${model}`); result={model,validated:true}; }
+    finally{ await pool.close(); }
+  }
   else if (command === 'prove') result=await prove();
   else if (command === 'refresh') {await migrate();result=await loadPlatform();}
   else if (command === 'query') {
@@ -32,7 +43,7 @@ try {
     const args=process.argv.slice(3),value=key=>args[args.indexOf(key)+1];
     if(!args.includes('--spec'))throw new Error('REGISTER_SPEC_REQUIRED');
     const spec=JSON.parse(await fs.readFile(value('--spec'),'utf8'));
-    result=await registerCapabilities(spec.capabilities,{dryRun:args.includes('--dry-run'),publish:!args.includes('--no-publish'),validate:!args.includes('--skip-validate')});
+    result=await registerCapabilities(spec.capabilities,{dryRun:args.includes('--dry-run'),publish:!args.includes('--no-publish'),supersede:args.includes('--supersede'),validate:!args.includes('--skip-validate')});
   }
   else throw new Error('COMMAND_NOT_IMPLEMENTED:' + command);
   console.log(JSON.stringify(result, null, 2));
