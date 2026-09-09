@@ -1,0 +1,110 @@
+{
+  "specType": "sidefx-capability-registration.v1",
+  "description": "Register the two authored equity market-price capabilities as a new estate generation. Published membership is immutable, so `register` builds a new model, carries the current membership forward, adds these rows, runs source.validate_model and publishes.",
+  "capabilities": [
+    {
+      "capabilityId": "resolve-equity-market-price-evidence",
+      "rootScenarioId": "resolve-equity-market-price-evidence",
+      "dir": "C:/lab/repos/sfx-embody/evidence/scaffold-output/resolve-equity-market-price-evidence",
+      "featureFile": "C:/lab/repos/agentic-harness/features/resolve-equity-market-price-evidence.feature",
+      "scenarios": [
+        {
+          "scenarioId": "resolve-equity-market-price-evidence",
+          "inputId": "equity-market-price-evidence-request",
+          "inputContractId": "equity-market-price-evidence-request.v1",
+          "eventId": "equity-market-price-evidence-requested",
+          "eventAuthorityId": "resolve-equity-market-price-evidence.v1",
+          "outcomeId": "equity-market-price-evidence",
+          "outcomeContractId": "equity-market-price-evidence.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_EVIDENCE_RESOLVED",
+          "responsibility": "the canonical evidence retains symbol, region, currency, price, market time, market state, exchange, source attribution, and provider testimony identity"
+        },
+        {
+          "scenarioId": "retain-provider-realization-outside-market-price-semantics",
+          "inputId": "equity-market-price-evidence",
+          "inputContractId": "equity-market-price-evidence.v1",
+          "eventId": "equity-market-price-provider-testimony-observed",
+          "eventAuthorityId": "retain-equity-market-price-provider-testimony.v1",
+          "outcomeId": "equity-market-price-evidence",
+          "outcomeContractId": "equity-market-price-evidence.v1",
+          "terminalDisposition": "PROVIDER_TESTIMONY_RETAINED",
+          "responsibility": "provider identity and native mapping identity are attributable realization evidence and do not enter the canonical capability identity"
+        },
+        {
+          "scenarioId": "hold-unavailable-equity-market-price-provider",
+          "inputId": "equity-market-price-evidence-request",
+          "inputContractId": "equity-market-price-evidence-request.v1",
+          "eventId": "equity-market-price-provider-unavailable",
+          "eventAuthorityId": "hold-unavailable-equity-market-price-provider.v1",
+          "outcomeId": "equity-market-price-provider-unavailable",
+          "outcomeContractId": "equity-market-price-provider-unavailable.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_UNAVAILABLE",
+          "responsibility": "resolution is held with attributable provider attempt evidence and no price evidence is invented"
+        },
+        {
+          "scenarioId": "reject-nonconforming-native-market-price-testimony",
+          "inputId": "native-equity-market-price-testimony",
+          "inputContractId": "native-equity-market-price-testimony.v1",
+          "eventId": "native-equity-market-price-testimony-observed",
+          "eventAuthorityId": "reject-nonconforming-native-market-price-testimony.v1",
+          "outcomeId": "native-equity-market-price-testimony-rejected",
+          "outcomeContractId": "native-equity-market-price-testimony-rejection.v1",
+          "terminalDisposition": "NATIVE_MARKET_PRICE_TESTIMONY_REJECTED",
+          "responsibility": "the testimony is rejected without widening the mapping or emitting canonical price evidence"
+        }
+      ]
+    },
+    {
+      "capabilityId": "select-equity-market-price-provider",
+      "rootScenarioId": "select-equity-market-price-provider",
+      "dir": "C:/lab/repos/sfx-embody/evidence/scaffold-output/select-equity-market-price-provider",
+      "featureFile": "C:/lab/repos/agentic-harness/features/select-equity-market-price-provider.feature",
+      "scenarios": [
+        {
+          "scenarioId": "select-equity-market-price-provider",
+          "inputId": "equity-market-price-provider-route-request",
+          "inputContractId": "equity-market-price-provider-route-request.v1",
+          "eventId": "equity-market-price-provider-route-requested",
+          "eventAuthorityId": "select-equity-market-price-provider.v1",
+          "outcomeId": "equity-market-price-provider-route-decision",
+          "outcomeContractId": "equity-market-price-provider-route-decision.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_SELECTED",
+          "responsibility": "the first eligible binding is selected and the decision retains the policy, binding, evidence, and ordering digests"
+        },
+        {
+          "scenarioId": "fallback-on-declared-equity-market-price-provider-unavailability",
+          "inputId": "equity-market-price-provider-fallback-request",
+          "inputContractId": "equity-market-price-provider-fallback-request.v1",
+          "eventId": "equity-market-price-provider-fallback-requested",
+          "eventAuthorityId": "fallback-equity-market-price-provider.v1",
+          "outcomeId": "equity-market-price-provider-route-decision",
+          "outcomeContractId": "equity-market-price-provider-route-decision.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_SELECTED",
+          "responsibility": "the next eligible provider is selected once and the preferred attempt remains attributable in the route evidence"
+        },
+        {
+          "scenarioId": "hold-equity-market-price-provider-route",
+          "inputId": "equity-market-price-provider-route-request",
+          "inputContractId": "equity-market-price-provider-route-request.v1",
+          "eventId": "equity-market-price-provider-route-unavailable",
+          "eventAuthorityId": "hold-equity-market-price-provider-route.v1",
+          "outcomeId": "equity-market-price-provider-route-held",
+          "outcomeContractId": "equity-market-price-provider-route-hold.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_ROUTE_HELD",
+          "responsibility": "the route is held with ordered findings and no undeclared provider or extra exchange is attempted"
+        },
+        {
+          "scenarioId": "reject-unsafe-equity-market-price-fallback",
+          "inputId": "equity-market-price-provider-fallback-request",
+          "inputContractId": "equity-market-price-provider-fallback-request.v1",
+          "eventId": "unsafe-equity-market-price-provider-fallback-requested",
+          "eventAuthorityId": "reject-unsafe-equity-market-price-fallback.v1",
+          "outcomeId": "equity-market-price-provider-route-rejected",
+          "outcomeContractId": "equity-market-price-provider-route-rejection.v1",
+          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_ROUTE_REJECTED",
+          "responsibility": "the route is rejected and the active provider policy remains unchanged"
+        }
+      ]
+    }
+  ]
+}

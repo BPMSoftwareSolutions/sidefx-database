@@ -6,6 +6,7 @@ import { loadPlatform } from './migration/load-platform.mjs';
 import { query } from './query/run.mjs';
 import { verify } from './migration/verify.mjs';
 import { prove } from './migration/prove.mjs';
+import { registerCapabilities } from './register/capability.mjs';
 import fs from 'node:fs/promises';
 
 try {
@@ -26,6 +27,12 @@ try {
     const statement=args.includes('--file')?await fs.readFile(value('--file'),'utf8'):args.includes('--sql')?value('--sql'):await new Promise((resolve,reject)=>{let s='';process.stdin.setEncoding('utf8');process.stdin.on('data',v=>s+=v);process.stdin.on('end',()=>resolve(s));process.stdin.on('error',reject);});
     const input=args.includes('--input')?JSON.parse(await fs.readFile(value('--input'),'utf8')):undefined;
     result=await query(statement,{rowLimit:args.includes('--limit')?Number(value('--limit')):undefined,committed:args.includes('--committed'),input});
+  }
+  else if (command === 'register') {
+    const args=process.argv.slice(3),value=key=>args[args.indexOf(key)+1];
+    if(!args.includes('--spec'))throw new Error('REGISTER_SPEC_REQUIRED');
+    const spec=JSON.parse(await fs.readFile(value('--spec'),'utf8'));
+    result=await registerCapabilities(spec.capabilities,{dryRun:args.includes('--dry-run'),publish:!args.includes('--no-publish'),validate:!args.includes('--skip-validate')});
   }
   else throw new Error('COMMAND_NOT_IMPLEMENTED:' + command);
   console.log(JSON.stringify(result, null, 2));

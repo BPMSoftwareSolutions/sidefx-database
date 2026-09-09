@@ -48,7 +48,7 @@ SELECT @matches = COUNT_BIG(*) FROM (
     JOIN source.source_observation o ON o.source_observation_pk = l.source_observation_pk
     JOIN source.source_appearance a ON a.source_appearance_pk = o.source_appearance_pk
     WHERE l.semantic_object_definition_pk = @capability_definition_pk
-      AND a.estate_snapshot_pk = @snapshot_pk AND a.source_class = 'MANAGED_CAPSULE'
+      AND a.estate_snapshot_pk = @snapshot_pk AND a.source_class IN ('MANAGED_CAPSULE', 'PROVISIONED_CAPSULE')
       AND a.capsule_digest IS NOT NULL
 ) candidates;
 IF @matches <> 1 THROW 51000, 'CAPABILITY_SOURCE_AUTHORITY_UNRESOLVED', 1;
@@ -57,7 +57,7 @@ FROM source.source_lineage l
 JOIN source.source_observation o ON o.source_observation_pk = l.source_observation_pk
 JOIN source.source_appearance a ON a.source_appearance_pk = o.source_appearance_pk
 WHERE l.semantic_object_definition_pk = @capability_definition_pk
-  AND a.estate_snapshot_pk = @snapshot_pk AND a.source_class = 'MANAGED_CAPSULE'
+  AND a.estate_snapshot_pk = @snapshot_pk AND a.source_class IN ('MANAGED_CAPSULE', 'PROVISIONED_CAPSULE')
   AND a.capsule_digest IS NOT NULL;
 
 SELECT c.capability_id, n.namespace_id, s.scenario_id,
@@ -86,7 +86,7 @@ SELECT DISTINCT a.source_path, a.entry_id, a.container_locator, c.byte_length,
 FROM source.source_appearance a
 JOIN source.content_object c ON c.content_object_pk = a.content_object_pk
 WHERE a.estate_snapshot_pk = @snapshot_pk AND a.capsule_digest = @capsule_digest
-  AND a.source_class = 'MANAGED_CAPSULE'
+  AND a.source_class IN ('MANAGED_CAPSULE', 'PROVISIONED_CAPSULE')
 ORDER BY a.source_path, a.entry_id;
 
 -- Resolve the stored platform catalog and mechanic registries by their declared
