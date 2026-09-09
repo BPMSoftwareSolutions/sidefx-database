@@ -876,9 +876,10 @@ export async function registerCapabilities(specs, options = {}) {
   }
 
   // --- phase 4: gates --------------------------------------------------------
-  // A dry run still builds and validates the generation (committed, resumable);
-  // it only withholds the pointer flip.
-  if (options.validate !== false) {
+  // publish_model re-runs validate_model internally, so the explicit validate
+  // phase serves only validate-only runs (dry run, or --no-publish). On the
+  // publish path we skip it and let publish_model's own gate run once.
+  if (options.validate !== false && (options.dryRun || !options.publish)) {
     emit('validate-start', { model, note: 'the validator is the long gate; watch the node-mssql session for the gate currently executing' });
     await phase('validate', async () => {
       await run(`EXEC source.validate_model @m`, { m: [sql.BigInt, model] });
@@ -887,7 +888,7 @@ export async function registerCapabilities(specs, options = {}) {
     });
   }
   if (options.publish && !options.dryRun) {
-    emit('publish-start', { model });
+    emit('publish-start', { model, note: 'publish_model validates the whole estate once, then flips the pointer' });
     await phase('publish', async () => {
       await run(`EXEC source.publish_model @m`, { m: [sql.BigInt, model] });
       summary.published = true;
