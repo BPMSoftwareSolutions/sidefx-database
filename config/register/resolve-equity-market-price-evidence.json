@@ -10,14 +10,14 @@
       "scenarios": [
         {
           "scenarioId": "resolve-equity-market-price-evidence",
-          "inputId": "equity-market-price-evidence-request",
-          "inputContractId": "equity-market-price-evidence-request.v1",
+          "inputId": "live-equity-price-request",
+          "inputContractId": "live-equity-price-request.v1",
           "eventId": "equity-market-price-evidence-requested",
           "eventAuthorityId": "resolve-equity-market-price-evidence.v1",
           "outcomeId": "equity-market-price-evidence",
           "outcomeContractId": "equity-market-price-evidence.v1",
           "terminalDisposition": "EQUITY_MARKET_PRICE_EVIDENCE_RESOLVED",
-          "responsibility": "the canonical evidence retains symbol, region, currency, price, market time, market state, exchange, source attribution, and provider testimony identity"
+          "responsibility": "the canonical evidence retains symbol, region, currency, price, market time, market state, exchange, source attribution, and provider testimony identity, or names why resolution was held"
         }
       ]
     }
