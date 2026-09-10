@@ -5,8 +5,8 @@
     {
       "capabilityId": "resolve-equity-market-price-evidence",
       "rootScenarioId": "resolve-equity-market-price-evidence",
-      "dir": "C:/lab/repos/sfx-embody/evidence/scaffold-output/resolve-equity-market-price-evidence",
-      "featureFile": "C:/lab/repos/agentic-harness/features/resolve-equity-market-price-evidence.feature",
+      "dir": "C:/lab/repos/sfx-embody/scaffolds/resolve-equity-market-price-evidence",
+      "featureFile": "C:/lab/repos/sfx-embody/features/resolve-equity-market-price-evidence.feature",
       "scenarios": [
         {
           "scenarioId": "resolve-equity-market-price-evidence",
@@ -18,39 +18,6 @@
           "outcomeContractId": "equity-market-price-evidence.v1",
           "terminalDisposition": "EQUITY_MARKET_PRICE_EVIDENCE_RESOLVED",
           "responsibility": "the canonical evidence retains symbol, region, currency, price, market time, market state, exchange, source attribution, and provider testimony identity"
-        },
-        {
-          "scenarioId": "retain-provider-realization-outside-market-price-semantics",
-          "inputId": "equity-market-price-evidence",
-          "inputContractId": "equity-market-price-evidence.v1",
-          "eventId": "equity-market-price-provider-testimony-observed",
-          "eventAuthorityId": "retain-equity-market-price-provider-testimony.v1",
-          "outcomeId": "equity-market-price-evidence",
-          "outcomeContractId": "equity-market-price-evidence.v1",
-          "terminalDisposition": "PROVIDER_TESTIMONY_RETAINED",
-          "responsibility": "provider identity and native mapping identity are attributable realization evidence and do not enter the canonical capability identity"
-        },
-        {
-          "scenarioId": "hold-unavailable-equity-market-price-provider",
-          "inputId": "equity-market-price-evidence-request",
-          "inputContractId": "equity-market-price-evidence-request.v1",
-          "eventId": "equity-market-price-provider-unavailable",
-          "eventAuthorityId": "hold-unavailable-equity-market-price-provider.v1",
-          "outcomeId": "equity-market-price-provider-unavailable",
-          "outcomeContractId": "equity-market-price-provider-unavailable.v1",
-          "terminalDisposition": "EQUITY_MARKET_PRICE_PROVIDER_UNAVAILABLE",
-          "responsibility": "resolution is held with attributable provider attempt evidence and no price evidence is invented"
-        },
-        {
-          "scenarioId": "reject-nonconforming-native-market-price-testimony",
-          "inputId": "native-equity-market-price-testimony",
-          "inputContractId": "native-equity-market-price-testimony.v1",
-          "eventId": "native-equity-market-price-testimony-observed",
-          "eventAuthorityId": "reject-nonconforming-native-market-price-testimony.v1",
-          "outcomeId": "native-equity-market-price-testimony-rejected",
-          "outcomeContractId": "native-equity-market-price-testimony-rejection.v1",
-          "terminalDisposition": "NATIVE_MARKET_PRICE_TESTIMONY_REJECTED",
-          "responsibility": "the testimony is rejected without widening the mapping or emitting canonical price evidence"
         }
       ]
     }
