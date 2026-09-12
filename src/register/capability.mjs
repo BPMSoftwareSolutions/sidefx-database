@@ -47,6 +47,7 @@ import { stable } from '../core.mjs';
 import { canonical, bytesDigest } from '../migration/data.mjs';
 import { packCapability } from './pack.mjs';
 import { decodeCapsule } from '../snapshot/capture.mjs';
+import { parseFeature, featureScenarios, tagsToValues } from '../derive/feature.mjs';
 
 // Registration is its own mapping rule. normalize.mjs selects MANAGED_CAPSULE
 // only, so PROVISIONED_CAPSULE -- a first-class source class the capture
@@ -56,6 +57,14 @@ const RULE_PROFILE = 'authored-provisioned-capsule.v1';
 
 const sha = bytes => createHash('sha256').update(bytes).digest();
 const pointer = key => String(key).replaceAll('~', '~0').replaceAll('/', '~1');
+// The managed normalizer strips Gherkin locations, AST ids and comments before
+// digesting a scenario. Registration applies the same reduction so the managed
+// and provisional lanes mint the same semantic fragment from the same feature.
+const cleanAst = value => Array.isArray(value) ? value.map(cleanAst)
+  : value && typeof value === 'object'
+    ? Object.fromEntries(Object.entries(value).filter(([key, item]) => item !== undefined
+        && !['location', 'id', 'comments'].includes(key)).map(([key, item]) => [key, cleanAst(item)]))
+    : value;
 
 // Canonical envelope for a normalized object, matching the derivation's
 // sidefx-semantic-definition.v1 shape. `stable` fixes key order, so the digest
@@ -193,10 +202,19 @@ export async function registerCapabilities(specs, options = {}) {
     { from: [sql.BigInt, current.estate_model_pk] })).recordset;
   if (!baseRules.length) throw new Error('BASE_MAPPING_RULE_NOT_FOUND');
 
+  // Bind the projector implementation into the rule, as the platform rule does.
+  // A changed projector produces a new rule digest and a fresh generation rather
+  // than resuming one built by different code.
+  const implementationDigest = sha(Buffer.from(canonical([
+    await fs.readFile(new URL('./capability.mjs', import.meta.url), 'utf8'),
+    await fs.readFile(new URL('./pack.mjs', import.meta.url), 'utf8'),
+    await fs.readFile(new URL('../derive/feature.mjs', import.meta.url), 'utf8')
+  ]))).toString('hex');
   const ruleBytes = Buffer.from(canonical({
     ruleId: RULE_ID,
     profile: RULE_PROFILE,
     canonicalization: 'JCS-IJSON-safe-integers.v1',
+    implementationDigest,
     selects: 'PROVISIONED_CAPSULE entries declared in this registration',
     extendsRuleDigests: baseRules.map(r => r.rule_digest.toString('hex')),
     selection: plans.map(p => ({
@@ -483,7 +501,25 @@ export async function registerCapabilities(specs, options = {}) {
     // --- capability ---------------------------------------------------------
     await phase('model-layer:' + plan.capabilityId, async () => {
       const authority = JSON.parse(entries.get('capability.authority.json').bytes.toString('utf8'));
-      const cap = await define('CAPABILITY', plan.capabilityId, authority, ns, 'sidefx:capabilities', manifestHex);
+      // The reviewed feature rides in the capsule. Parse it here so the scenario
+      // definition carries what the feature authored, not a separately supplied
+      // face list. spec.scenarios still resolves references; it is no longer the
+      // source of the scenario's semantic content.
+      const featureEntry = entries.get('features/{id}.feature');
+      if (!featureEntry) throw new Error('CAPABILITY_FEATURE_ENTRY_MISSING:' + plan.capabilityId);
+      const feature = parseFeature(featureEntry.bytes.toString('utf8')).feature;
+      const declaredScenarios = new Map(featureScenarios(feature).map(({ scenario, inherited }) => {
+        const tags = tagsToValues([...inherited, ...scenario.tags]);
+        return [tags.scenario?.length === 1 ? tags.scenario[0] : null, { scenario, tags }];
+      }));
+      // The capability envelope carries the scenarios the feature declares, as
+      // the managed normalizer does. That ties the capability version to the
+      // authored feature content, so a changed scenario mints a new capability
+      // version and membership instead of colliding on the previous one.
+      const scenarioMembers = Object.fromEntries([...declaredScenarios.entries()]
+        .filter(([id]) => id).map(([id, { scenario }]) => [id, cleanAst(scenario)]));
+      const cap = await define('CAPABILITY', plan.capabilityId,
+        { authority, scenario_members: scenarioMembers }, ns, 'sidefx:capabilities', manifestHex);
       let capPk = (await scalar(
         `SELECT capability_pk FROM model.capability WHERE namespace_pk = @ns AND capability_id = @id`,
         { ns: [sql.BigInt, ns], id: [sql.NVarChar, plan.capabilityId] }))?.capability_pk;
@@ -678,10 +714,12 @@ export async function registerCapabilities(specs, options = {}) {
 
       // --- scenario identity -------------------------------------------------
       for (const s of plan.scenarios) {
+        const declared = declaredScenarios.get(s.scenarioId);
+        if (!declared) throw new Error('SCENARIO_NOT_DECLARED_IN_FEATURE:' + s.scenarioId);
         const scenarioNs = await ownedNamespace('SCENARIO',
           { id: plan.capabilityId, kind: 'CAPABILITY', namespace: 'sidefx:capabilities' }, cap.so);
         const scn = await define('SCENARIO', s.scenarioId,
-          { scenarioId: s.scenarioId, capabilityId: plan.capabilityId, input: s.inputId, event: s.eventId, outcome: s.outcomeId },
+          { scenario: cleanAst(declared.scenario), tags: declared.tags },
           scenarioNs.namespacePk, scenarioNs.namespaceId, manifestHex);
         let scnPk = (await scalar(
           `SELECT scenario_pk FROM model.scenario WHERE capability_pk = @c AND scenario_id = @id`,
