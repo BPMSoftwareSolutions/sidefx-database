@@ -1,0 +1,1653 @@
+{
+  "sourceFile": "sql/experiments/remove-overhead-and-scaffold-hello-world.sql",
+  "capturedAt": "2026-09-12T10:42:51.070Z",
+  "resultSets": [
+    {
+      "name": "1_GUARDS",
+      "rowCount": 127,
+      "rows": [
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_assessment",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_assessment_definition_input",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_assessment_source_input",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_circuit_assessment",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_compatibility_assessment",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_coverage_assessment",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_integrity_finding",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_integrity_rule",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_provider_qualification_assessment",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "analysis",
+          "trigger_name": "guard_unresolved_reference",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_authority",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_authority_definition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_binding_context",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_binding_mechanic_implementation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_binding_port_implementation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_bounded_return",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_convergence_requirement",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_edge",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_edge_contract",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_fan_out_member",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_fan_out_set",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_node_face",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_node_scenario",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_observed_invocation_mapping",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_observed_transition_mapping",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_blueprint_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_code_mapping",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_code_mapping_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_component",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_component_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_container",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_container_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_context",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_c4_context_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_capability",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_capability_feature",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_capability_root_scenario",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_capability_scenario",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_capability_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_contract",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_contract_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_definition_version_label",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_estate_capability",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_estate_definition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_execution_authority",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_execution_authority_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_execution_operation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_expression_semantic_reference",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_feature",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_feature_scenario",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_feature_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture_assertion",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture_assertion_condition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture_case",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture_port_outcome",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_fixture_scenario_step",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_identity_namespace",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_mechanic",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_mechanic_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_namespace_owner",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_observable_condition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_observed_execution_scenario_invocation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_observed_invocation_resolution",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_observed_semantic_graph_transition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_observed_transition_resolution",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_mechanic",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_port_invocation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_predecessor",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_scenario_invocation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_state_projection",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_operation_transformation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_outcome_product",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_outcome_variant",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_outcome_variant_product",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_port",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_port_contract",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_port_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_product",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_product_definition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_proof_obligation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_proof_obligation_fixture",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_proof_obligation_subject",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_binding",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_binding_scope",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_capability_implementation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_definition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_mechanic_implementation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_port_implementation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_profile",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_profile_constraint",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_profile_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_slot",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_provider_slot_operation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario_event",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario_input",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario_outcome",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario_outcome_contract",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_scenario_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_schema_object",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_semantic_object",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_semantic_object_definition",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_slot_mechanic_requirement",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_slot_port_requirement",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_slot_profile_constraint",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_slot_profile_requirement",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_transformation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_transformation_expression_child",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_transformation_expression_node",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_transformation_root",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "model",
+          "trigger_name": "guard_transformation_version",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_content_object",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_declaration_observation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_estate_model",
+          "blocks": true,
+          "reason": "forces a new BUILDING generation (MODEL_MUST_START_BUILDING)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_estate_model_rule",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_estate_snapshot",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_mapping_rule",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_namespace_mapping",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_relationship_observation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_source_appearance",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_source_classification",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_source_lineage",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        },
+        {
+          "result_set": "1_GUARDS",
+          "schema_name": "source",
+          "trigger_name": "guard_source_observation",
+          "blocks": true,
+          "reason": "blocks update/delete of working data (IMMUTABLE_INSPECTION_DATA)"
+        }
+      ]
+    },
+    {
+      "name": "2_REMAINING_BLOCKING",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "2_REMAINING_BLOCKING",
+          "blocking_guards_remaining": 127
+        }
+      ]
+    },
+    {
+      "name": "3_IMPORTER_UPDATE",
+      "rowCount": 8,
+      "rows": [
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "DELETE",
+          "state_desc": "DENY",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "source.current_model"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "UPDATE",
+          "state_desc": "DENY",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "source.current_model"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "DELETE",
+          "state_desc": "DENY",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "source.schema_migration"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "UPDATE",
+          "state_desc": "DENY",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "source.schema_migration"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "DELETE",
+          "state_desc": "DENY",
+          "class_desc": "SCHEMA",
+          "target": "sys.sysseobjvalues"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "UPDATE",
+          "state_desc": "DENY",
+          "class_desc": "SCHEMA",
+          "target": "sys.sysseobjvalues"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "UPDATE",
+          "state_desc": "GRANT",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "model.scenario_outcome"
+        },
+        {
+          "result_set": "3_IMPORTER_UPDATE",
+          "permission_name": "UPDATE",
+          "state_desc": "GRANT",
+          "class_desc": "OBJECT_OR_COLUMN",
+          "target": "source.source_appearance"
+        }
+      ]
+    },
+    {
+      "name": "4_DROPPED",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "4_DROPPED",
+          "statements": "DROP TRIGGER [source].[guard_estate_snapshot];\nDROP TRIGGER [source].[guard_content_object];\nDROP TRIGGER [source].[guard_source_appearance];\nDROP TRIGGER [source].[guard_mapping_rule];\nDROP TRIGGER [source].[guard_source_classification];\nDROP TRIGGER [source].[guard_namespace_mapping];\nDROP TRIGGER [source].[guard_source_observation];\nDROP TRIGGER [source].[guard_declaration_observation];\nDROP TRIGGER [source].[guard_relationship_observation];\nDROP TRIGGER [source].[guard_source_lineage];\nDROP TRIGGER [source].[guard_estate_model_rule];\nDROP TRIGGER [model].[guard_identity_namespace];\nDROP TRIGGER [model].[guard_namespace_owner];\nDROP TRIGGER [model].[guard_semantic_object];\nDROP TRIGGER [model].[guard_semantic_object_definition];\nDROP TRIGGER [model].[guard_definition_version_label];\nDROP TRIGGER [model].[guard_estate_definition];\nDROP TRIGGER [model].[guard_estate_capability];\nDROP TRIGGER [model].[guard_capability];\nDROP TRIGGER [model].[guard_capability_version];\nDROP TRIGGER [model].[guard_product];\nDROP TRIGGER [model].[guard_product_definition];\nDROP TRIGGER [model].[guard_contract];\nDROP TRIGGER [model].[guard_contract_version];\nDROP TRIGGER [model].[guard_execution_authority];\nDROP TRIGGER [model].[guard_execution_authority_version];\nDROP TRIGGER [model].[guard_transformation];\nDROP TRIGGER [model].[guard_transformation_version];\nDROP TRIGGER [model].[guard_mechanic];\nDROP TRIGGER [model].[guard_mechanic_version];\nDROP TRIGGER [model].[guard_port];\nDROP TRIGGER [model].[guard_port_version];\nDROP TRIGGER [model].[guard_provider];\nDROP TRIGGER [model].[guard_provider_definition];\nDROP TRIGGER [model].[guard_provider_profile];\nDROP TRIGGER [model].[guard_provider_profile_version];\nDROP TRIGGER [model].[guard_blueprint];\nDROP TRIGGER [model].[guard_blueprint_version];\nDROP TRIGGER [model].[guard_authority];\nDROP TRIGGER [model].[guard_authority_definition];\nDROP TRIGGER [model].[guard_scenario];\nDROP TRIGGER [model].[guard_scenario_version];\nDROP TRIGGER [model].[guard_capability_scenario];\nDROP TRIGGER [model].[guard_capability_root_scenario];\nDROP TRIGGER [model].[guard_scenario_input];\nDROP TRIGGER [model].[guard_scenario_event];\nDROP TRIGGER [model].[guard_scenario_outcome];\nDROP TRIGGER [model].[guard_outcome_variant];\nDROP TRIGGER [model].[guard_outcome_product];\nDROP TRIGGER [model].[guard_outcome_variant_product];\nDROP TRIGGER [model].[guard_scenario_outcome_contract];\nDROP TRIGGER [model].[guard_schema_object];\nDROP TRIGGER [model].[guard_port_contract];\nDROP TRIGGER [model].[guard_execution_operation];\nDROP TRIGGER [model].[guard_operation_port_invocation];\nDROP TRIGGER [model].[guard_operation_scenario_invocation];\nDROP TRIGGER [model].[guard_operation_state_projection];\nDROP TRIGGER [model].[guard_operation_mechanic];\nDROP TRIGGER [model].[guard_operation_predecessor];\nDROP TRIGGER [model].[guard_transformation_expression_node];\nDROP TRIGGER [model].[guard_transformation_expression_child];\nDROP TRIGGER [model].[guard_transformation_root];\nDROP TRIGGER [model].[guard_expression_semantic_reference];\nDROP TRIGGER [model].[guard_operation_transformation];\nDROP TRIGGER [model].[guard_provider_port_implementation];\nDROP TRIGGER [model].[guard_provider_mechanic_implementation];\nDROP TRIGGER [model].[guard_provider_capability_implementation];\nDROP TRIGGER [model].[guard_provider_profile_constraint];\nDROP TRIGGER [model].[guard_provider_slot];\nDROP TRIGGER [model].[guard_slot_port_requirement];\nDROP TRIGGER [model].[guard_slot_mechanic_requirement];\nDROP TRIGGER [model].[guard_slot_profile_requirement];\nDROP TRIGGER [model].[guard_slot_profile_constraint];\nDROP TRIGGER [model].[guard_binding_context];\nDROP TRIGGER [model].[guard_provider_binding_scope];\nDROP TRIGGER [model].[guard_provider_binding];\nDROP TRIGGER [model].[guard_binding_port_implementation];\nDROP TRIGGER [model].[guard_binding_mechanic_implementation];\nDROP TRIGGER [model].[guard_provider_slot_operation];\nDROP TRIGGER [model].[guard_blueprint_node];\nDROP TRIGGER [model].[guard_blueprint_node_face];\nDROP TRIGGER [model].[guard_blueprint_node_scenario];\nDROP TRIGGER [model].[guard_blueprint_edge];\nDROP TRIGGER [model].[guard_blueprint_edge_contract];\nDROP TRIGGER [model].[guard_blueprint_convergence_requirement];\nDROP TRIGGER [model].[guard_blueprint_fan_out_set];\nDROP TRIGGER [model].[guard_blueprint_fan_out_member];\nDROP TRIGGER [model].[guard_blueprint_bounded_return];\nDROP TRIGGER [model].[guard_fixture];\nDROP TRIGGER [model].[guard_fixture_case];\nDROP TRIGGER [model].[guard_fixture_assertion];\nDROP TRIGGER [model].[guard_fixture_scenario_step];\nDROP TRIGGER [model].[guard_fixture_port_outcome];\nDROP TRIGGER [model].[guard_observable_condition];\nDROP TRIGGER [model].[guard_fixture_assertion_condition];\nDROP TRIGGER [model].[guard_proof_obligation];\nDROP TRIGGER [model].[guard_proof_obligation_subject];\nDROP TRIGGER [model].[guard_proof_obligation_fixture];\nDROP TRIGGER [model].[guard_c4_context];\nDROP TRIGGER [model].[guard_c4_container];\nDROP TRIGGER [model].[guard_c4_component];\nDROP TRIGGER [model].[guard_c4_code_mapping];\nDROP TRIGGER [model].[guard_c4_context_node];\nDROP TRIGGER [model].[guard_c4_container_node];\nDROP TRIGGER [model].[guard_c4_component_node];\nDROP TRIGGER [model].[guard_c4_code_mapping_node];\nDROP TRIGGER [model].[guard_observed_semantic_graph_transition];\nDROP TRIGGER [model].[guard_observed_execution_scenario_invocation];\nDROP TRIGGER [model].[guard_observed_transition_resolution];\nDROP TRIGGER [model].[guard_observed_invocation_resolution];\nDROP TRIGGER [model].[guard_blueprint_observed_transition_mapping];\nDROP TRIGGER [model].[guard_blueprint_observed_invocation_mapping];\nDROP TRIGGER [analysis].[guard_integrity_rule];\nDROP TRIGGER [analysis].[guard_assessment];\nDROP TRIGGER [analysis].[guard_assessment_source_input];\nDROP TRIGGER [analysis].[guard_assessment_definition_input];\nDROP TRIGGER [analysis].[guard_integrity_finding];\nDROP TRIGGER [analysis].[guard_unresolved_reference];\nDROP TRIGGER [analysis].[guard_compatibility_assessment];\nDROP TRIGGER [model].[guard_feature];\nDROP TRIGGER [analysis].[guard_coverage_assessment];\nDROP TRIGGER [model].[guard_feature_version];\nDROP TRIGGER [analysis].[guard_circuit_assessment];\nDROP TRIGGER [model].[guard_feature_scenario];\nDROP TRIGGER [analysis].[guard_provider_qualification_assessment];\nDROP TRIGGER [model].[guard_capability_feature];\nDROP TRIGGER [source].[guard_estate_model];\n"
+        }
+      ]
+    },
+    {
+      "name": "0_BRANCH",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "0_BRANCH",
+          "branch": "CREATE"
+        }
+      ]
+    },
+    {
+      "name": "1_CAPABILITY",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "1_CAPABILITY",
+          "capability_id": "hello-world-sql",
+          "capability_version_pk": "70335",
+          "estate_model_pk": "34"
+        }
+      ]
+    },
+    {
+      "name": "2_STDOUT_BINDING",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "2_STDOUT_BINDING",
+          "platform_capability": "sda-json-cli.v1",
+          "interface_kind": "cli",
+          "payload_port": "sda-authority-transformation-port.v1",
+          "source_path": "capabilities/hello-world-sql/interfaces.authority.json"
+        }
+      ]
+    },
+    {
+      "name": "3_PLATFORM_PROVIDER",
+      "rowCount": 3,
+      "rows": [
+        {
+          "result_set": "3_PLATFORM_PROVIDER",
+          "declared_id": "sda-json-cli.v1",
+          "object_kind": "CAPABILITY"
+        },
+        {
+          "result_set": "3_PLATFORM_PROVIDER",
+          "declared_id": "sda-json-cli.v1",
+          "object_kind": "CAPABILITY"
+        },
+        {
+          "result_set": "3_PLATFORM_PROVIDER",
+          "declared_id": "sda-json-cli.v1",
+          "object_kind": "CAPABILITY"
+        }
+      ]
+    },
+    {
+      "name": "4_MESSAGE_TEMPLATE",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "4_MESSAGE_TEMPLATE",
+          "greeting_template": "Hello {name}!",
+          "name_path": "payload.name",
+          "source_path": "capabilities/hello-world-sql/semantic-transformation.authority.json"
+        }
+      ]
+    },
+    {
+      "name": "6_INPUT_CONTRACT",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "6_INPUT_CONTRACT",
+          "required_payload_field": "name",
+          "source_path": "capabilities/hello-world-sql/contracts/input.schema.json"
+        }
+      ]
+    },
+    {
+      "name": "5_LINEAGE",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "5_LINEAGE",
+          "lineage_rows": 1
+        }
+      ]
+    },
+    {
+      "name": "dataset.identity_namespace",
+      "rowCount": 2,
+      "rows": [
+        {
+          "result_set": "dataset.identity_namespace",
+          "namespace_pk": "3",
+          "namespace_kind": "CAPABILITY",
+          "namespace_id": "sidefx:capabilities"
+        },
+        {
+          "result_set": "dataset.identity_namespace",
+          "namespace_pk": "23922",
+          "namespace_kind": "SCENARIO",
+          "namespace_id": "owner:scenario:hello-world-sql"
+        }
+      ]
+    },
+    {
+      "name": "dataset.semantic_object",
+      "rowCount": 2,
+      "rows": [
+        {
+          "result_set": "dataset.semantic_object",
+          "semantic_object_pk": "109896",
+          "object_kind": "CAPABILITY",
+          "namespace_pk": "3",
+          "declared_id": "hello-world-sql"
+        },
+        {
+          "result_set": "dataset.semantic_object",
+          "semantic_object_pk": "109897",
+          "object_kind": "SCENARIO",
+          "namespace_pk": "23922",
+          "declared_id": "hello-world-sql"
+        }
+      ]
+    },
+    {
+      "name": "dataset.semantic_object_definition",
+      "rowCount": 2,
+      "rows": [
+        {
+          "result_set": "dataset.semantic_object_definition",
+          "semantic_object_definition_pk": "114196",
+          "semantic_object_pk": "109896",
+          "object_kind": "CAPABILITY",
+          "definition_digest": {
+            "$bytes": "li3B7O6v75hxG9+9/hFoeCm8LgPpJYrBgfLLC3Y+cxQ="
+          },
+          "canonical_content_pk": "80310"
+        },
+        {
+          "result_set": "dataset.semantic_object_definition",
+          "semantic_object_definition_pk": "114197",
+          "semantic_object_pk": "109897",
+          "object_kind": "SCENARIO",
+          "definition_digest": {
+            "$bytes": "WKVFy2/f3zBuCgFFSa/wPLHXNMa7ufHmlmm2kybf4PA="
+          },
+          "canonical_content_pk": "80311"
+        }
+      ]
+    },
+    {
+      "name": "dataset.capability",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.capability",
+          "capability_pk": "20301",
+          "namespace_pk": "3",
+          "capability_id": "hello-world-sql",
+          "semantic_object_pk": "109896",
+          "object_kind": "CAPABILITY"
+        }
+      ]
+    },
+    {
+      "name": "dataset.capability_version",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.capability_version",
+          "capability_version_pk": "70335",
+          "capability_pk": "20301",
+          "semantic_object_pk": "109896",
+          "semantic_object_definition_pk": "114196",
+          "definition_digest": {
+            "$bytes": "li3B7O6v75hxG9+9/hFoeCm8LgPpJYrBgfLLC3Y+cxQ="
+          },
+          "name": "hello-world-sql",
+          "actor": null,
+          "intent": null,
+          "outcome": null,
+          "experience_id": null,
+          "experience_actor": null,
+          "experience_promise": null,
+          "object_kind": "CAPABILITY",
+          "_owner_definition_pk": "114196",
+          "_canonical_pointer": "",
+          "_canonical_pointer_key": {
+            "$bytes": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "dataset.estate_capability",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.estate_capability",
+          "estate_model_pk": "34",
+          "capability_pk": "20301",
+          "capability_version_pk": "70335",
+          "semantic_object_definition_pk": "114196"
+        }
+      ]
+    },
+    {
+      "name": "dataset.scenario",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.scenario",
+          "scenario_pk": "10857",
+          "namespace_pk": "23922",
+          "scenario_id": "hello-world-sql",
+          "semantic_object_pk": "109897",
+          "object_kind": "SCENARIO",
+          "capability_pk": "20301"
+        }
+      ]
+    },
+    {
+      "name": "dataset.scenario_version",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.scenario_version",
+          "scenario_version_pk": "10901",
+          "scenario_pk": "10857",
+          "semantic_object_pk": "109897",
+          "semantic_object_definition_pk": "114197",
+          "definition_digest": {
+            "$bytes": "WKVFy2/f3zBuCgFFSa/wPLHXNMa7ufHmlmm2kybf4PA="
+          },
+          "name": "hello-world-sql",
+          "source_profile": "managed-feature-tags.v1",
+          "object_kind": "SCENARIO",
+          "_owner_definition_pk": "114197",
+          "_canonical_pointer": "",
+          "_canonical_pointer_key": {
+            "$bytes": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "dataset.capability_scenario",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.capability_scenario",
+          "capability_pk": "20301",
+          "capability_version_pk": "70335",
+          "scenario_pk": "10857",
+          "scenario_version_pk": "10901",
+          "_owner_definition_pk": "114196",
+          "_canonical_pointer": "/semantics/scenario_members/hello-world-sql",
+          "_canonical_pointer_key": {
+            "$bytes": "LwBzAGUAbQBhAG4AdABpAGMAcwAvAHMAYwBlAG4AYQByAGkAbwBfAG0AZQBtAGIAZQByAHMALwBoAGUAbABsAG8ALQB3AG8AcgBsAGQALQBzAHEAbAA="
+          }
+        }
+      ]
+    },
+    {
+      "name": "dataset.capability_root_scenario",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.capability_root_scenario",
+          "capability_version_pk": "70335",
+          "scenario_pk": "10857",
+          "_owner_definition_pk": "114196",
+          "_canonical_pointer": "",
+          "_canonical_pointer_key": {
+            "$bytes": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "dataset.source_appearance",
+      "rowCount": 12,
+      "rows": [
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36859",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80300",
+          "appearance_digest": {
+            "$bytes": "CaOYlFnDkiTnGOzASlAKH6EpMmIIV3fpXRsLJkes1J0="
+          },
+          "source_path": "capabilities/hello-world-sql/capability.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "capability.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36860",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80301",
+          "appearance_digest": {
+            "$bytes": "SPmjfeCE2lW2e1cW6YXXEle7O9+RFShxV+fSrUK87gE="
+          },
+          "source_path": "capabilities/hello-world-sql/capability.feature",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "features/{id}.feature.workspace-alias"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36861",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80301",
+          "appearance_digest": {
+            "$bytes": "skOt4XELRecBNI0e7/gVzgKLv0onZNmlG5e4x3p4MYI="
+          },
+          "source_path": "features/hello-world-sql.feature",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "features/{id}.feature"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36862",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80302",
+          "appearance_digest": {
+            "$bytes": "L8wJkvlILyt5eUDIwz3CjNus2JRxM/xaGpOan/BOKFU="
+          },
+          "source_path": "capabilities/hello-world-sql/consumer-workspace.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "consumer-workspace.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36863",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80303",
+          "appearance_digest": {
+            "$bytes": "sRZEg1/aU84jU+xI8E6iWLDSz5gUA3Zx80wSAsUzAfo="
+          },
+          "source_path": "capabilities/hello-world-sql/execution-authorities.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "execution-authorities.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36864",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80304",
+          "appearance_digest": {
+            "$bytes": "cdDs63P3VnJx+0brSb5kBLr2DuNJWCjvQemasZMF2mI="
+          },
+          "source_path": "capabilities/hello-world-sql/interfaces.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "interfaces.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36865",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80305",
+          "appearance_digest": {
+            "$bytes": "3DZpUMmhWK+tmtOCvkXc7ZemTy25+Y8jycCZxZZITzU="
+          },
+          "source_path": "capabilities/hello-world-sql/semantic-transformation.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "semantic-transformation.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36866",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80306",
+          "appearance_digest": {
+            "$bytes": "qN4tqKaI3VVcBcl3YraLtxse1FjTKYVUDtXlyn/x3xU="
+          },
+          "source_path": "capabilities/hello-world-sql/fixtures.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "fixtures.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36867",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80307",
+          "appearance_digest": {
+            "$bytes": "GuF51JvuSqyepSYUFn4S28g1ECaOW2A2Bk+zbIF3XNo="
+          },
+          "source_path": "capabilities/hello-world-sql/semantic-graph.authority.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "semantic-graph.authority.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36868",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "3535",
+          "appearance_digest": {
+            "$bytes": "rV+6lzs/WHEiwiXJQ68+akPe7Mp+d/ONSLsrIHJDvtM="
+          },
+          "source_path": "capabilities/hello-world-sql/contracts/contract-catalog.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "contracts/contract-catalog.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36869",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80308",
+          "appearance_digest": {
+            "$bytes": "SOyPyQ8bVjSMkdGJ9pSF59U3XsTHPrRDQ+jQ6qQoDGc="
+          },
+          "source_path": "capabilities/hello-world-sql/contracts/input.schema.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "contracts/input.schema.json"
+        },
+        {
+          "result_set": "dataset.source_appearance",
+          "source_appearance_pk": "36870",
+          "estate_snapshot_pk": "2",
+          "content_object_pk": "80309",
+          "appearance_digest": {
+            "$bytes": "yoixTQZUw6QZkZvsj7zRUBdREieG3If2/nQGNLQCzFY="
+          },
+          "source_path": "capabilities/hello-world-sql/contracts/outcome.schema.json",
+          "source_class": "PROVISIONED_CAPSULE",
+          "container_locator": "provisioning/hello-world-sql.sfxcap",
+          "capsule_digest": {
+            "$bytes": "xOhmEWnzo8BHF+tgmKnvLgb6TArRVgTVqWF0mH1YaW4="
+          },
+          "referenced_authority_digest": null,
+          "entry_id": "contracts/outcome.schema.json"
+        }
+      ]
+    },
+    {
+      "name": "dataset.content_object",
+      "rowCount": 11,
+      "rows": [
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "3535",
+          "content_digest": {
+            "$bytes": "McJpSoc7UESVhSfaafXw8H0y3vjNM5GphTBWoc3u0z4="
+          },
+          "content_bytes": {
+            "$bytes": "ewogICJoZWxsby13b3JsZC1yZXF1ZXN0LnYxIjogImlucHV0LnNjaGVtYS5qc29uIiwKICAiaGVsbG8td29ybGQtZ3JlZXRpbmcudjEiOiAib3V0Y29tZS5zY2hlbWEuanNvbiIKfQo="
+          },
+          "byte_length": "104"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80300",
+          "content_digest": {
+            "$bytes": "9rRo7CccBSf4FYhRiXskZ38BMtcNqQQ2F/ha7Xa8DBs="
+          },
+          "content_bytes": {
+            "$bytes": "ewogICJjYXBhYmlsaXR5SWQiOiAiaGVsbG8td29ybGQtc3FsIiwKICAibmFtZSI6ICJoZWxsby13b3JsZC1zcWwiLAogICJtb2RlIjogImNhcGFiaWxpdHkiLAogICJ1c2VyU3RvcnkiOiB7ICJhY3RvciI6ICJjYWxsZXIiLCAiaW50ZW50IjogIndyaXRlIGEgZGF0YWJhc2UtZGVmaW5lZCBtZXNzYWdlIHRvIHN0YW5kYXJkIG91dHB1dCIsICJvdXRjb21lIjogInRoZSBjYWxsZXIgb2JzZXJ2ZXMgdGhlIGNvbmZpZ3VyZWQgbWVzc2FnZSIgfSwKICAiZXhwZXJpZW5jZSI6IHsgImV4cGVyaWVuY2VJZCI6ICJoZWxsby13b3JsZC1zcWwudjEiLCAiYWN0b3IiOiAiY2FsbGVyIiwKICAgICJwcm9taXNlIjogInRoZSBjb25maWd1cmVkIG1lc3NhZ2UgaXMgZGVsaXZlcmVkIHRocm91Z2ggdGhlIHNkYS1qc29uLWNsaS52MSBzdGFuZGFyZC1vdXRwdXQgaW50ZXJmYWNlIiwKICAgICJvYnNlcnZhYmxlQ29uZGl0aW9ucyI6IFsgeyAiY29uZGl0aW9uSWQiOiAibWVzc2FnZS1kZWxpdmVyZWQtdG8tc3RhbmRhcmQtb3V0cHV0IiB9IF0gfSwKICAicm9vdFNjZW5hcmlvSWQiOiAiaGVsbG8td29ybGQtc3FsIgp9"
+          },
+          "byte_length": "567"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80301",
+          "content_digest": {
+            "$bytes": "AM5RoK6r+BU8iWIg+vfXZdX50U/ET1QlTfcUjx58HH4="
+          },
+          "content_bytes": {
+            "$bytes": "QGNhcGFiaWxpdHk6aGVsbG8td29ybGQtc3FsCkByb290LXNjZW5hcmlvOmhlbGxvLXdvcmxkLXNxbApGZWF0dXJlOiBXcml0ZSB0aGUgY29uZmlndXJlZCB0ZXh0IHRvIHN0YW5kYXJkIG91dHB1dAoKICBAc2NlbmFyaW86aGVsbG8td29ybGQtc3FsCiAgQGlucHV0OmhlbGxvLXdvcmxkLXJlcXVlc3QKICBAaW5wdXQtY29udHJhY3Q6aGVsbG8td29ybGQtcmVxdWVzdC52MQogIEBldmVudDpoZWxsby13b3JsZC1zcWwKICBAZXZlbnQtYXV0aG9yaXR5OmhlbGxvLXdvcmxkLXNxbC52MQogIEBvdXRjb21lOmhlbGxvLXdvcmxkLWdyZWV0aW5nCiAgQG91dGNvbWUtY29udHJhY3Q6aGVsbG8td29ybGQtZ3JlZXRpbmcudjEKICBAb3V0Y29tZS10ZXJtaW5hbAogIFNjZW5hcmlvOiBXcml0ZSB0aGUgZGF0YWJhc2UtZGVmaW5lZCBtZXNzYWdlCiAgICBHaXZlbiB0aGUgbWVzc2FnZSBjb25maWd1cmVkIGluIHRoZSBkYXRhYmFzZQogICAgV2hlbiB0aGUgc2RhLWpzb24tY2xpLnYxIHN0YW5kYXJkLW91dHB1dCBpbnRlcmZhY2UgZXhlY3V0ZXMgd2l0aCB0aGF0IG1lc3NhZ2UKICAgIFRoZW4gdGhlIGNhbGxlciBvYnNlcnZlcyB0aGUgZ3JlZXRpbmcgZm9yIHRoZSBzdXBwbGllZCBuYW1lIG9uIHN0YW5kYXJkIG91dHB1dAo="
+          },
+          "byte_length": "632"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80302",
+          "content_digest": {
+            "$bytes": "KoqDbnW0E5SP0Xks4YXsHTZ8fslRmpouX0TpD5D3hvk="
+          },
+          "content_bytes": {
+            "$bytes": "eyAid29ya3NwYWNlVHlwZSI6ICJjb25zdW1lci13b3Jrc3BhY2UtYXV0aG9yaXR5LnYxIiwgImNvbnN1bWVySWQiOiAiaGVsbG8td29ybGQtc3FsIiwgInByb2plY3Rpb25UYXJnZXRzIjogWyAibm9kZSIgXSwKICAiY2FwYWJpbGl0aWVzIjogWyB7ICJmZWF0dXJlSWQiOiAiaGVsbG8td29ybGQtc3FsLmZlYXR1cmUiLCAiZmVhdHVyZSI6ICJjYXBhYmlsaXR5LmZlYXR1cmUiLCAiY2FwYWJpbGl0eSI6ICJjYXBhYmlsaXR5LmF1dGhvcml0eS5qc29uIiwKICAic2VtYW50aWNHcmFwaCI6ICJzZW1hbnRpYy1ncmFwaC5hdXRob3JpdHkuanNvbiIsICJleGVjdXRpb25BdXRob3JpdGllcyI6ICJleGVjdXRpb24tYXV0aG9yaXRpZXMuYXV0aG9yaXR5Lmpzb24iLCAiaW50ZXJmYWNlcyI6ICJpbnRlcmZhY2VzLmF1dGhvcml0eS5qc29uIiwgImZpeHR1cmVzIjogImZpeHR1cmVzLmF1dGhvcml0eS5qc29uIiB9IF0gfQ=="
+          },
+          "byte_length": "460"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80303",
+          "content_digest": {
+            "$bytes": "1w3DNj+fP3oshL5it8RhqSA1VqIa7ANeBVfCLo3/Lk0="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiYXV0aG9yaXR5VHlwZSI6ICJleGVjdXRpb24tYXV0aG9yaXRpZXMudjEiLCAiZXhlY3V0aW9uQXV0aG9yaXRpZXMiOiBbIHsgImlkIjogImhlbGxvLXdvcmxkLXNxbC52MSIsICJvd25pbmdTY2VuYXJpb0lkIjogImhlbGxvLXdvcmxkLXNxbCIsCiAgIm9wZXJhdGlvbnMiOiBbIHsgImtpbmQiOiAiaW52b2tlLXBvcnQiLCAicG9ydElkIjogImhlbGxvLXdvcmxkLXNxbC1wb3J0IiB9IF0gfSBdIH0="
+          },
+          "byte_length": "227"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80304",
+          "content_digest": {
+            "$bytes": "qm/Z86TKxTKBs7KejFjVzdcEma+aZNyv3th1UtJUF00="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiaW50ZXJmYWNlQXV0aG9yaXR5VHlwZSI6ICJjb25zdW1lci1pbnRlcmZhY2UtYXV0aG9yaXR5LnYxIiwgImNvbnRyYWN0VmFsaWRhdG9yQ2FwYWJpbGl0eUlkIjogInNkYS1zY2hlbWEtY29udHJhY3QtYWRtaXNzaW9uLnYxIiwgImNvbnRyYWN0Q2F0YWxvZyI6ICJjb250cmFjdHMvY29udHJhY3QtY2F0YWxvZy5qc29uIiwKICAiaW50ZXJmYWNlcyI6IFsgeyAiaW50ZXJmYWNlSWQiOiAiaGVsbG8td29ybGQtc3FsLWNsaSIsICJraW5kIjogImNsaSIsICJyb290U2NlbmFyaW9JZCI6ICJoZWxsby13b3JsZC1zcWwiLCAicGxhdGZvcm1DYXBhYmlsaXR5SWQiOiAic2RhLWpzb24tY2xpLnYxIiwgInByb2plY3Rpb25UYXJnZXRzIjogWyAibm9kZSIgXSB9IF0sCiAgInBvcnRCaW5kaW5ncyI6IFsgeyAicG9ydElkIjogImhlbGxvLXdvcmxkLXNxbC1wb3J0IiwgInBsYXRmb3JtQ2FwYWJpbGl0eUlkIjogInNkYS1hdXRob3JpdHktdHJhbnNmb3JtYXRpb24tcG9ydC52MSIsCiAgICAiY29uZmlndXJhdGlvbiI6IHsgInRyYW5zZm9ybWF0aW9uQXV0aG9yaXR5UmVmIjogInNlbWFudGljLXRyYW5zZm9ybWF0aW9uLmF1dGhvcml0eS5qc29uIiwgInRyYW5zZm9ybWF0aW9uSWQiOiAiaGVsbG8td29ybGQtc3FsLXRyYW5zZm9ybS52MSIgfSB9IF0sICJwcm9qZWN0aW9uQmluZGluZ3MiOiBbXSB9"
+          },
+          "byte_length": "675"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80305",
+          "content_digest": {
+            "$bytes": "XMMgvX/hD6M0tFRrQ707CAlvTHVT40x8nzdBVeEp3TE="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiYXV0aG9yaXR5VHlwZSI6ICJzZW1hbnRpYy10cmFuc2Zvcm1hdGlvbi1hdXRob3JpdHkudjEiLCAidHJhbnNmb3JtYXRpb25zIjogWyB7ICJpZCI6ICJoZWxsby13b3JsZC1zcWwtdHJhbnNmb3JtLnYxIiwKICAiZXhwcmVzc2lvbiI6IHsgIm9wIjogIm9iamVjdCIsICJmaWVsZHMiOiB7ICJjb250cmFjdElkIjogeyAib3AiOiAibGl0ZXJhbCIsICJ2YWx1ZSI6ICJoZWxsby13b3JsZC1ncmVldGluZy52MSIgfSwKICAgICJwYXlsb2FkIjogeyAib3AiOiAib2JqZWN0IiwgImZpZWxkcyI6IHsgIm1lc3NhZ2UiOiB7ICJvcCI6ICJmb3JtYXQiLCAidGVtcGxhdGUiOiAiSGVsbG8ge25hbWV9ISIsICJ2YWx1ZXMiOiB7ICJuYW1lIjogeyAib3AiOiAicGF0aCIsICJmcm9tIjogImlucHV0IiwgInBhdGgiOiAicGF5bG9hZC5uYW1lIiB9IH0gfSB9IH0gfSB9IH0gXSB9"
+          },
+          "byte_length": "435"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80306",
+          "content_digest": {
+            "$bytes": "kGLU62jKM+e7cxPiwQBQDMLipKA2nRICkmpcgENJZ08="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiZml4dHVyZVR5cGUiOiAiY29uc3VtZXItY2FwYWJpbGl0eS1maXh0dXJlcy52MSIsICJmaXh0dXJlcyI6IFsgeyAiZml4dHVyZUlkIjogImdyZWV0cy10aGUtc3VwcGxpZWQtbmFtZSIsICJpbnB1dCI6IHsgImNvbnRyYWN0SWQiOiAiaGVsbG8td29ybGQtcmVxdWVzdC52MSIsICJwYXlsb2FkIjogeyAibmFtZSI6ICJTaWRuZXkiIH0gfSwKICAiZXhwZWN0ZWQiOiB7ICJkaXNwb3NpdGlvbiI6ICJ0ZXJtaW5hdGVkIiwgInRlcm1pbmFsU2NlbmFyaW9JZCI6ICJoZWxsby13b3JsZC1zcWwiLCAic2NlbmFyaW9TZXF1ZW5jZSI6IFsgImhlbGxvLXdvcmxkLXNxbCIgXSwKICAgICJvdXRjb21lQXNzZXJ0aW9ucyI6IFsgeyAiY29uZGl0aW9uSWQiOiAiZXhhY3QtbWVzc2FnZSIsICJwYXRoIjogInBheWxvYWQubWVzc2FnZSIsICJvcGVyYXRvciI6ICJlcXVhbHMiLCAidmFsdWUiOiAiSGVsbG8gU2lkbmV5ISIgfSBdIH0gfSBdIH0="
+          },
+          "byte_length": "470"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80307",
+          "content_digest": {
+            "$bytes": "+VKoYem2lawt/9QfHxVpD65Bv4S0ft5AJQFjv5lBTkc="
+          },
+          "content_bytes": {
+            "$bytes": "eyAidHJhbnNpdGlvbnMiOiBbXSB9"
+          },
+          "byte_length": "21"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80308",
+          "content_digest": {
+            "$bytes": "fh/Zust5QsSJYH0KcXNcrM7w5VeAKQ1fyPyw7XDRcqc="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiJHNjaGVtYSI6ICJodHRwczovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC8yMDIwLTEyL3NjaGVtYSIsICIkaWQiOiAiaHR0cHM6Ly9zY2hlbWFzLmFnZW50aWMtaGFybmVzcy5sb2NhbC9jb250cmFjdHMvaGVsbG8td29ybGQtcmVxdWVzdC52MS5zY2hlbWEuanNvbiIsCiAgInR5cGUiOiAib2JqZWN0IiwgImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjogZmFsc2UsICJyZXF1aXJlZCI6IFsgImNvbnRyYWN0SWQiLCAicGF5bG9hZCIgXSwKICAicHJvcGVydGllcyI6IHsgImNvbnRyYWN0SWQiOiB7ICJjb25zdCI6ICJoZWxsby13b3JsZC1yZXF1ZXN0LnYxIiB9LCAicGF5bG9hZCI6IHsgInR5cGUiOiAib2JqZWN0IiwgImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjogZmFsc2UsICJyZXF1aXJlZCI6IFsgIm5hbWUiIF0sCiAgICAicHJvcGVydGllcyI6IHsgIm5hbWUiOiB7ICJ0eXBlIjogInN0cmluZyIsICJtaW5MZW5ndGgiOiAxIH0gfSB9IH0gfQ=="
+          },
+          "byte_length": "475"
+        },
+        {
+          "result_set": "dataset.content_object",
+          "content_object_pk": "80309",
+          "content_digest": {
+            "$bytes": "6HEHOvj4aSz6FW9H64vT5UZC923ZXcsolmt7r/aaKNI="
+          },
+          "content_bytes": {
+            "$bytes": "eyAiJHNjaGVtYSI6ICJodHRwczovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC8yMDIwLTEyL3NjaGVtYSIsICIkaWQiOiAiaHR0cHM6Ly9zY2hlbWFzLmFnZW50aWMtaGFybmVzcy5sb2NhbC9jb250cmFjdHMvaGVsbG8td29ybGQtZ3JlZXRpbmcudjEuc2NoZW1hLmpzb24iLAogICJ0eXBlIjogIm9iamVjdCIsICJhZGRpdGlvbmFsUHJvcGVydGllcyI6IGZhbHNlLCAicmVxdWlyZWQiOiBbICJjb250cmFjdElkIiwgInBheWxvYWQiIF0sCiAgInByb3BlcnRpZXMiOiB7ICJjb250cmFjdElkIjogeyAiY29uc3QiOiAiaGVsbG8td29ybGQtZ3JlZXRpbmcudjEiIH0sICJwYXlsb2FkIjogeyAidHlwZSI6ICJvYmplY3QiLCAiYWRkaXRpb25hbFByb3BlcnRpZXMiOiBmYWxzZSwgInJlcXVpcmVkIjogWyAibWVzc2FnZSIgXSwKICAgICJwcm9wZXJ0aWVzIjogeyAibWVzc2FnZSI6IHsgInR5cGUiOiAic3RyaW5nIiwgIm1pbkxlbmd0aCI6IDEgfSB9IH0gfSB9"
+          },
+          "byte_length": "483"
+        }
+      ]
+    },
+    {
+      "name": "dataset.source_observation",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.source_observation",
+          "source_observation_pk": "69232",
+          "source_appearance_pk": "36859",
+          "locator": "",
+          "locator_digest": {
+            "$bytes": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+          },
+          "observation_kind": "DECLARATION",
+          "presence_state": "PRESENT",
+          "observed_value_content_pk": "80300"
+        }
+      ]
+    },
+    {
+      "name": "dataset.declaration_observation",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.declaration_observation",
+          "source_observation_pk": "69232",
+          "declared_kind": "CAPABILITY",
+          "declared_id": "hello-world-sql",
+          "namespace_text": "sidefx:capabilities",
+          "observation_kind": "DECLARATION"
+        }
+      ]
+    },
+    {
+      "name": "dataset.source_lineage",
+      "rowCount": 1,
+      "rows": [
+        {
+          "result_set": "dataset.source_lineage",
+          "source_lineage_pk": "545573",
+          "semantic_object_definition_pk": "114196",
+          "member_kind": "capability_version",
+          "canonical_pointer": "",
+          "canonical_pointer_key": {
+            "$bytes": ""
+          },
+          "source_observation_pk": "69232",
+          "mapping_rule_pk": "3",
+          "contribution_role": "DECLARATION"
+        }
+      ]
+    }
+  ]
+}
